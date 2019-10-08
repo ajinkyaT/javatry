@@ -22,7 +22,7 @@ import org.docksidestage.unit.PlainTestCase;
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
  * (javadocの通りにエクササイズを実施。質問形式の場合はテストを実行する前に考えて答えを書いてみましょう)
  * @author jflute
- * @author your_name_here
+ * @author Ajinkya Takawale
  */
 public class Step04MethodTest extends PlainTestCase {
 
@@ -35,7 +35,7 @@ public class Step04MethodTest extends PlainTestCase {
      */
     public void test_method_call_basic() {
         String sea = supplySomething();
-        log(sea); // your answer? =>
+        log(sea); // your answer? => over
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -43,7 +43,7 @@ public class Step04MethodTest extends PlainTestCase {
         String sea = functionSomething("mystic");
         consumeSomething(supplySomething());
         runnableSomething();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => mysmys
     }
 
     private String functionSomething(String name) {
@@ -76,7 +76,7 @@ public class Step04MethodTest extends PlainTestCase {
         if (!land) {
             sea = sea + mutable.getStageName().length();
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 910
     }
 
     private int helloMutable(int sea, Boolean land, St4MutableStage piari) {
@@ -115,7 +115,7 @@ public class Step04MethodTest extends PlainTestCase {
         }
         ++sea;
         sea = inParkCount;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 100
     }
 
     private void offAnnualPassport(boolean hasAnnualPassport) {
@@ -150,14 +150,34 @@ public class Step04MethodTest extends PlainTestCase {
      * o showSea(): 一つのString引数、戻り値なし、引数をlog()で表示する
      * </pre>
      */
+    private Boolean availableLogging = true;
     public void test_method_making() {
-        // comment out after making these methods
-        //String replaced = replaceCtoB(replaceAtoB("ABC"));
-        //String sea = addPrefix("broadway", replaced);
-        //if (isAvailableLogging()) {
-        //    showSea(sea);
-        //}
+//         comment out after making these methods
+        String replaced = replaceCtoB(replaceAtoB("ABC"));
+        String sea = addPrefix("broadway", replaced);
+        if (isAvailableLogging()) {
+            showSea(sea);
+        }
     }
 
     // write methods here
+    private String replaceAtoB(String name) {
+        String replaced = name.replace("A", "B");
+        return replaced;
+    }
+    private String replaceCtoB(String name) {
+        String replaced = name.replace("C", "B");
+        return replaced;
+    }
+    private String addPrefix(String name_1, String name_2) {
+        String replaced = name_1+":"+name_2;
+        return replaced;
+    }
+    private Boolean isAvailableLogging() {
+        return availableLogging;
+    }
+    private void showSea(String name){
+        log("in showSea: {}", name);
+    }
+
 }
