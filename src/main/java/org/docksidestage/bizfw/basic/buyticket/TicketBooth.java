@@ -32,6 +32,7 @@ public class TicketBooth {
     //                                                                           =========
     private int quantity = MAX_QUANTITY;
     private Integer salesProceeds;
+    private int change = 0;
 
     // ===================================================================================
     //                                                                         Constructor
@@ -43,40 +44,37 @@ public class TicketBooth {
     //                                                                          Buy Ticket
     //                                                                          ==========
     public void buyOneDayPassport(int handedMoney) {
-        if (quantity <= 0) {
-            throw new TicketSoldOutException("Sold out");
-        }
-        if (handedMoney < ONE_DAY_PRICE) {
-            throw new TicketShortMoneyException("Short money: " + (ONE_DAY_PRICE - handedMoney));
-        }
-        --quantity;
-        if (salesProceeds != null) {
-            salesProceeds = salesProceeds + ONE_DAY_PRICE;
-        } else {
-            salesProceeds = ONE_DAY_PRICE;
-        }
+        change = buy_ticket(ONE_DAY_PRICE, handedMoney);
+
     }
+
     public int buyTwoDayPassport(int handedMoney) {
+
+        change = buy_ticket(TWO_DAY_PRICE, handedMoney);
+
+        return change;
+    }
+
+    private int buy_ticket(int type, int handedMoney){
         int change = 0;
         if (quantity <= 0) {
             throw new TicketSoldOutException("Sold out");
         }
-        if (handedMoney < TWO_DAY_PRICE) {
-            throw new TicketShortMoneyException("Short money: " + (TWO_DAY_PRICE - handedMoney));
+        if (handedMoney < type) {
+            throw new TicketShortMoneyException("Short money: " + (type - handedMoney));
         }
         --quantity;
-        if (handedMoney  >= TWO_DAY_PRICE) {
+        if (handedMoney  >= type) {
 
             if (salesProceeds != null) {
-                salesProceeds = salesProceeds + TWO_DAY_PRICE;
+                salesProceeds = salesProceeds + type;
             } else {
-                salesProceeds = TWO_DAY_PRICE;
+                salesProceeds = type;
             }
 
-            if (handedMoney > TWO_DAY_PRICE){
-                change = handedMoney - TWO_DAY_PRICE;
-            } else {change = 0; }
-
+            if (handedMoney > type) {
+                change = handedMoney - type;
+            }
         }
 
         return change;
