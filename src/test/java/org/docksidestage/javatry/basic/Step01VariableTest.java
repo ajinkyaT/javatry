@@ -152,6 +152,7 @@ public class Step01VariableTest extends PlainTestCase {
 
     private void helpMethodArgumentMethodcall(StringBuilder sea, int land) {
         ++land;
+        // TODO [ask] why this append didn't affect your answer? by zaya 2019/10/09
         sea.append(land);
     }
 
@@ -163,6 +164,7 @@ public class Step01VariableTest extends PlainTestCase {
         StringBuilder sea = new StringBuilder("harbor");
         int land = 415;
         helpMethodArgumentVariable(sea, land);
+        // TODO [ask] the method returns void, but in the method sea is changed, why it didn't change in the result?　 by zaya 2019/10/09
         log(sea); // your answer? => harbor , no return value set or method returns void
     }
 
@@ -199,6 +201,11 @@ public class Step01VariableTest extends PlainTestCase {
         Integer land = null;
         log(sea, land, piari); // lesson learnt cannot create null int instance inside method need to create it outside
                                 // method but inside class
+        // TODO [comment to] cannot create null int instance inside method,　 by zaya 2019/10/09
+        // in specific we can't create null int, because it is primitive
+        // Integer can be null, but int can not be null
+        // in this case we can create instance variable without initial value and log
+        // but we can't log local variable without initial value
     }
 
     // ===================================================================================
@@ -210,7 +217,7 @@ public class Step01VariableTest extends PlainTestCase {
      * <pre>
      * _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
      * your question here (ここにあなたの質問を):
-     * 
+     *
      * _/_/_/_/_/_/_/_/_/_/
      * </pre>
      */
@@ -221,10 +228,14 @@ public class Step01VariableTest extends PlainTestCase {
         helpMethodArgumentImmutableMethodcall_final(sea,land);
         sea = helpMethodArgumentMutableMethodcall_final(sea, land);
         log(sea, land); //your answer: OceanIndian 8, 7
+        // TODO clear empty lines, we don't want to use display space for nothing　 by zaya 2019/10/09
+        // but in case empty line makes your code more readable (by creating blocks) you can insert empty lines
 
 
     }
 
+    // TODO what's the difference between mutable and immutable?　 by zaya 2019/10/09
+    // [hint] returning value is not really related
     private String helpMethodArgumentMutableMethodcall_final(String sea, int land) {
         land = ++land;
         String landStr = "Indian " + String.valueOf(land);
