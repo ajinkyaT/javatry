@@ -161,7 +161,10 @@ public class Step02IfForTest extends PlainTestCase {
      */
     public void test_iffor_making() {
         // write if-for here
+        // TODO stageList is used only once, you don't have to make a variable here
+        // simpler and shorter the better by zaya 2019/10/09
         List<String> stageList = prepareStageList();
+        // TODO 'A_list' rename this local variable to match the regular expressions '^[a-z][a-zA-Z0-9]*$' by zaya 2019/10/09
         List<String> A_list = new ArrayList<>();
         for (String stage : stageList) {
             if (stage.contains("a")) {
@@ -184,6 +187,8 @@ public class Step02IfForTest extends PlainTestCase {
         List<String> stageList = prepareStageList();
         String sea = null;
         String[] value = { null };
+        // TODO [ask] what happens if the stageList doesn't contain any "ga" in the list?
+        // is the output same? by zaya 2019/10/09
         stageList.forEach(stage ->  {
             if (stage.contains("ga")) {
                 value[0] = stage;
@@ -209,6 +214,7 @@ public class Step02IfForTest extends PlainTestCase {
         List<String> stageList = prepareStageList();
         List<String> A_list = new ArrayList<>();
         for (String stage : stageList) {
+            // TODO fix noncompliant | by zaya 2019/10/09
             if ((stage.contains("a") | stage.contains("g"))){
                 A_list.add(stage);
             }
