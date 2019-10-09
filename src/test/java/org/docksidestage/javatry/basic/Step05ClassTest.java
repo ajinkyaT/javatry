@@ -18,6 +18,7 @@ package org.docksidestage.javatry.basic;
 import org.docksidestage.bizfw.basic.buyticket.Ticket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth.TicketShortMoneyException;
+import org.docksidestage.bizfw.basic.buyticket.TicketBuyResult;
 import org.docksidestage.unit.PlainTestCase;
 
 /**
@@ -107,7 +108,8 @@ public class Step05ClassTest extends PlainTestCase {
         // comment out after making the method
         TicketBooth booth = new TicketBooth();
         int money = 14000;
-        int change = booth.buyTwoDayPassport(money);
+        TicketBuyResult twoDayPassportResult = booth.buyTwoDayPassport(money);
+        int change = twoDayPassportResult.getChange();
         Integer sea = booth.getSalesProceeds() + change;
         log(sea); // should be same as money
 
@@ -148,12 +150,12 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_return_whole() {
         // comment out after modifying the method
-        //TicketBooth booth = new TicketBooth();
-        //int handedMoney = 20000;
-        //TicketBuyResult twoDayPassportResult = booth.buyTwoDayPassport(handedMoney);
-        //Ticket twoDayPassport = twoDayPassportResult.getTicket();
-        //int change = twoDayPassportResult.getChange();
-        //log(twoDayPassport.getDisplayPrice() + change); // should be same as money
+        TicketBooth booth = new TicketBooth();
+        int handedMoney = 20000;
+        TicketBuyResult twoDayPassportResult = booth.buyTwoDayPassport(handedMoney);
+        Ticket twoDayPassport = twoDayPassportResult.getTicket();
+        int change = twoDayPassportResult.getChange();
+        log(twoDayPassport.getDisplayPrice() + change); // should be same as money
     }
 
     /**
@@ -162,6 +164,16 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_type() {
         // your confirmation code here
+        TicketBooth booth = new TicketBooth();
+        int handedMoney = 7400;
+        Ticket oneDayPassport = booth.buyOneDayPassport(handedMoney);
+        log(oneDayPassport.getTicketType());
+
+        int handedMoney_new = 20000;
+        TicketBuyResult twoDayPassportResult = booth.buyTwoDayPassport(handedMoney_new);
+        Ticket twoDayPassport = twoDayPassportResult.getTicket();
+        log(twoDayPassport.getTicketType());
+
     }
 
     // ===================================================================================

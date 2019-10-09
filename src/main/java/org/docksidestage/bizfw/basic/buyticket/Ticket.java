@@ -50,6 +50,15 @@ public class Ticket {
         return displayPrice;
     }
 
+    public String getTicketType() {
+
+        if (displayPrice == 7400){
+            return "One Day Passport";
+        } else  {
+            return "Two Day Passport";
+        }
+    }
+
     public boolean isAlreadyIn() {
         return alreadyIn;
     }
