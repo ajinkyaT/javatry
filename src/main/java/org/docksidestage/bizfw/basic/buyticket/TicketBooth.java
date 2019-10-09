@@ -46,31 +46,42 @@ public class TicketBooth {
         if (quantity <= 0) {
             throw new TicketSoldOutException("Sold out");
         }
-        --quantity;
         if (handedMoney < ONE_DAY_PRICE) {
-            throw new TicketShortMoneyException("Short money: " + handedMoney);
+            throw new TicketShortMoneyException("Short money: " + (ONE_DAY_PRICE - handedMoney));
         }
+        --quantity;
         if (salesProceeds != null) {
-            salesProceeds = salesProceeds + handedMoney;
+            salesProceeds = salesProceeds + ONE_DAY_PRICE;
         } else {
-            salesProceeds = handedMoney;
+            salesProceeds = ONE_DAY_PRICE;
         }
     }
     public int buyTwoDayPassport(int handedMoney) {
+        int change = 0;
         if (quantity <= 0) {
             throw new TicketSoldOutException("Sold out");
         }
-        --quantity;
         if (handedMoney < TWO_DAY_PRICE) {
-            throw new TicketShortMoneyException("Short money: " + handedMoney);
+            throw new TicketShortMoneyException("Short money: " + (TWO_DAY_PRICE - handedMoney));
         }
-        if (salesProceeds != null) {
-            salesProceeds = salesProceeds + handedMoney;
-        } else {
-            salesProceeds = handedMoney;
+        --quantity;
+        if (handedMoney  >= TWO_DAY_PRICE) {
+
+            if (salesProceeds != null) {
+                salesProceeds = salesProceeds + TWO_DAY_PRICE;
+            } else {
+                salesProceeds = TWO_DAY_PRICE;
+            }
+
+            if (handedMoney > TWO_DAY_PRICE){
+                change = handedMoney - TWO_DAY_PRICE;
+            } else {change = 0; }
+
         }
-        return change = handedMoney - TWO_DAY_PRICE
+
+        return change;
     }
+
     public static class TicketSoldOutException extends RuntimeException {
 
         private static final long serialVersionUID = 1L;
