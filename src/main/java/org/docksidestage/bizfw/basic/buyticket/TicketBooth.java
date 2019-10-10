@@ -50,28 +50,26 @@ public class TicketBooth {
 
     public TicketBuyResult buyTwoDayPassport(int handedMoney) {
         change = buy_ticket(TWO_DAY_PRICE, handedMoney);
-        return new TicketBuyResult(handedMoney, change);
+        return new TicketBuyResult(change, TWO_DAY_PRICE);
     }
 
-    private int buy_ticket(int type, int handedMoney){
+    private int buy_ticket(int displayPrice, int handedMoney){
         int change = 0;
         if (quantity <= 0) {
             throw new TicketSoldOutException("Sold out");
         }
-        if (handedMoney < type) {
-            throw new TicketShortMoneyException("Short money: " + (type - handedMoney));
+        if (handedMoney < displayPrice) {
+            throw new TicketShortMoneyException("Short money: " + (displayPrice - handedMoney));
         }
         --quantity;
-        if (handedMoney  >= type) {
-
             if (salesProceeds != null) {
-                salesProceeds = salesProceeds + type;
+                salesProceeds = salesProceeds + displayPrice;
             } else {
-                salesProceeds = type;
+                salesProceeds = displayPrice;
             }
 
-            if (handedMoney > type) {
-                change = handedMoney - type;
+            if (handedMoney > displayPrice) {
+                change = handedMoney - displayPrice;
             }
         }
 

@@ -197,6 +197,8 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_useInterface() {
         // your confirmation code here
+
+
     }
 
     /**

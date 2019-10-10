@@ -18,7 +18,7 @@ package org.docksidestage.bizfw.basic.buyticket;
 /**
  * @author jflute
  */
-public class Ticket {
+public class Ticket implements TicketInterface {
 
     // ===================================================================================
     //                                                                           Attribute
