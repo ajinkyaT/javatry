@@ -20,6 +20,11 @@ public class OneDayTicket implements TicketInterface {
         return "One Day Passport";
     }
 
+    @Override
+    public int counterDays() {
+        return 1;
+    }
+
     public boolean isAlreadyIn() {
         return alreadyIn;
     }

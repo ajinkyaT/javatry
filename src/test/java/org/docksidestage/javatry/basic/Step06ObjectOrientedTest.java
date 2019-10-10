@@ -15,8 +15,9 @@
  */
 package org.docksidestage.javatry.basic;
 
-import org.docksidestage.bizfw.basic.buyticket.Ticket;
+import org.docksidestage.bizfw.basic.buyticket.OneDayTicket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
+import org.docksidestage.bizfw.basic.buyticket.TicketInterface;
 import org.docksidestage.bizfw.basic.objanimal.Animal;
 import org.docksidestage.bizfw.basic.objanimal.BarkedSound;
 import org.docksidestage.bizfw.basic.objanimal.Cat;
@@ -65,12 +66,12 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
             throw new IllegalStateException("Short money: handedMoney=" + handedMoney);
         }
         --quantity;
-        salesProceeds = handedMoney;
+        salesProceeds = oneDayPrice;
 
         //
         // [ticket info]
         //
-        int displayPrice = quantity;
+        int displayPrice = oneDayPrice;
         boolean alreadyIn = false;
 
         // other processes here...
@@ -81,7 +82,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // [do in park now!!!]
         //
         if (alreadyIn) {
-            throw new IllegalStateException("Already in park by this ticket: displayPrice=" + quantity);
+            throw new IllegalStateException("Already in park by this ticket: displayPrice=" + displayPrice);
         }
         alreadyIn = true;
 
@@ -91,11 +92,11 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         saveBuyingHistory(quantity, displayPrice, salesProceeds, alreadyIn);
     }
 
-    private void saveBuyingHistory(int quantity, Integer salesProceeds, int displayPrice, boolean alreadyIn) {
+    private void saveBuyingHistory(int quantity, int displayPrice ,  Integer salesProceeds, boolean alreadyIn) {
         if (alreadyIn) {
             // only logging here (normally e.g. DB insert)
-            showTicketBooth(displayPrice, salesProceeds);
-            showYourTicket(quantity, alreadyIn);
+            showTicketBooth(quantity, salesProceeds);
+            showYourTicket(displayPrice, alreadyIn);
         }
     }
 
@@ -133,7 +134,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // _/_/_/_/_/_/_/_/_/_/
         //Ticket ticket = booth.buyOneDayPassport(10000);
         booth.buyOneDayPassport(10000); // as temporary, remove if you finished steo05
-        Ticket ticket = new Ticket(7400); // also here
+        OneDayTicket ticket = new OneDayTicket(); // also here
 
         // *buyOneDayPassport() has this process:
         //if (quantity <= 0) {
@@ -170,7 +171,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         saveBuyingHistory(booth, ticket);
     }
 
-    private void saveBuyingHistory(TicketBooth booth, Ticket ticket) {
+    private void saveBuyingHistory(TicketBooth booth, TicketInterface ticket) {
         if (ticket.isAlreadyIn()) {
             // only logging here (normally e.g. DB insert)
             doShowTicketBooth(booth);
@@ -182,7 +183,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         log("Ticket Booth: quantity={}, salesProceeds={}", booth.getQuantity(), booth.getSalesProceeds());
     }
 
-    private void doShowYourTicket(Ticket ticket) {
+    private void doShowYourTicket( TicketInterface ticket) {
         log("Your Ticket: displayPrice={}, alreadyIn={}", ticket.getDisplayPrice(), ticket.isAlreadyIn());
     }
 

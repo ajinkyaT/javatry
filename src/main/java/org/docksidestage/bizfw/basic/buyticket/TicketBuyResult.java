@@ -4,7 +4,6 @@ public class TicketBuyResult{
     private static int DisplayPrice;
     private int change;
     private boolean oneDayTicket;
-    private Ticket tic;
     private int numberOfDays = 1;
 
     public TicketBuyResult( int change, int DisplayPrice, boolean oneDayticket, int numberOfDays) {

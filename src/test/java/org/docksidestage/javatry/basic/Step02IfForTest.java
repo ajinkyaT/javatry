@@ -217,7 +217,6 @@ public class Step02IfForTest extends PlainTestCase {
         List<String> A_list = new ArrayList<>();
         for (String stage : stageList) {
             //  DONE TODO fix noncompliant | by zaya 2019/10/09
-            //
             if ((stage.contains("a") || stage.contains("g"))) {
                 A_list.add(stage);
             }

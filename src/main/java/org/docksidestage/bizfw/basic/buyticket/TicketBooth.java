@@ -111,6 +111,7 @@ public class TicketBooth {
         return quantity;
     }
 
+
     public Integer getSalesProceeds() {
         return salesProceeds;
     }

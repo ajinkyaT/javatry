@@ -4,5 +4,7 @@ public interface TicketInterface {
     public void doInPark();
     public int getDisplayPrice();
     String getTicketType();
+    public int counterDays();
+    boolean isAlreadyIn();
 
 }

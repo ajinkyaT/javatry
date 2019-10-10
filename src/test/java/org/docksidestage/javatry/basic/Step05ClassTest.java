@@ -152,7 +152,7 @@ public class Step05ClassTest extends PlainTestCase {
         TicketBooth booth = new TicketBooth();
         int handedMoney = 20000;
         TicketBuyResult twoDayPassportResult = booth.buyTwoDayPassport(handedMoney);
-        Ticket twoDayPassport = (Ticket) twoDayPassportResult.getTicket();
+        TicketInterface twoDayPassport =  twoDayPassportResult.getTicket();
         int change = twoDayPassportResult.getChange();
         log(twoDayPassport.getDisplayPrice() + change); // should be same as money
     }
@@ -170,7 +170,7 @@ public class Step05ClassTest extends PlainTestCase {
 
         int handedMoney_new = 20000;
         TicketBuyResult twoDayPassportResult = booth.buyTwoDayPassport(handedMoney_new);
-        Ticket twoDayPassport = (Ticket) twoDayPassportResult.getTicket();
+        TicketInterface twoDayPassport = twoDayPassportResult.getTicket();
         log(twoDayPassport.getTicketType());
 
     }
@@ -218,12 +218,12 @@ public class Step05ClassTest extends PlainTestCase {
         int handedMoney_new = 24000;
         TicketBuyResult fourDayPassportResult = booth.buyFourDayPassport(handedMoney_new);
         TicketInterface fourDayPassportPassport =  fourDayPassportResult.getTicket();
-        log(fourDayPassportPassport instanceof PluralDayTicket);
-        PluralDayTicket ticket = (PluralDayTicket) fourDayPassportPassport;
+//        log(fourDayPassportPassport instanceof PluralDayTicket);
+//        PluralDayTicket ticket = (PluralDayTicket) fourDayPassportPassport;
         log(fourDayPassportPassport.getTicketType());
         log("Change: " + fourDayPassportResult.getChange());
-        ticket.doInPark();
-        log("Checked in, days remaining : " + ticket.counterDays());
+        fourDayPassportPassport.doInPark();
+        log("Checked in, days remaining : " + fourDayPassportPassport.counterDays());
     }
 
     /**
