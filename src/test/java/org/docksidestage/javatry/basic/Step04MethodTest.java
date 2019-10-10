@@ -135,21 +135,24 @@ public class Step04MethodTest extends PlainTestCase {
     /**
      * Make private methods as followings, and comment out caller program in test method:
      * <pre>
-     * o replaceAtoB(): has one argument as String, returns argument replaced "A" with "B" as String 
-     * o replaceCtoB(): has one argument as String, returns argument replaced "C" with "B" as String 
-     * o addPrefix(): has two arguments as String, returns combined first argument with ":" with second argument 
-     * o isAvailableLogging(): no argument, returns private instance variable "availableLogging" initialized as true (also make it)  
+     * o replaceAtoB(): has one argument as String, returns argument replaced "A" with "B" as String
+     * o replaceCtoB(): has one argument as String, returns argument replaced "C" with "B" as String
+     * o addPrefix(): has two arguments as String, returns combined first argument with ":" with second argument
+     * o isAvailableLogging(): no argument, returns private instance variable "availableLogging" initialized as true (also make it)
      * o showSea(): has one argument as String argument, no return, show argument by log()
      * </pre>
      * (privateメソッドを以下のように定義して、テストメソッド内の呼び出しプログラムをコメントアウトしましょう):
      * <pre>
-     * o replaceAtoB(): 一つのString引数、引数を "A" を "B" に置き換えらたStringを戻す 
-     * o replaceCtoB(): 一つのString引数、引数を "C" を "B" に置き換えらたStringを戻す 
-     * o addPrefix(): 二つのString引数、第一引数と ":" と第二引数を連結したものを戻す 
-     * o isAvailableLogging(): 引数なし、privateのインスタンス変数 "availableLogging" (初期値:true) を戻す (それも作る)  
+     * o replaceAtoB(): 一つのString引数、引数を "A" を "B" に置き換えらたStringを戻す
+     * o replaceCtoB(): 一つのString引数、引数を "C" を "B" に置き換えらたStringを戻す
+     * o addPrefix(): 二つのString引数、第一引数と ":" と第二引数を連結したものを戻す
+     * o isAvailableLogging(): 引数なし、privateのインスタンス変数 "availableLogging" (初期値:true) を戻す (それも作る)
      * o showSea(): 一つのString引数、戻り値なし、引数をlog()で表示する
      * </pre>
      */
+    // TODO create empty line between instance variable and a method,
+    //  instance variable can be used in any method, when there is no new line it looks like it's connected to the method
+    //  [tips] IntelliJ auto formatting shortcut, option + command + l by zaya 2019/10/10
     private Boolean availableLogging = true;
     public void test_method_making() {
 //         comment out after making these methods
@@ -161,6 +164,7 @@ public class Step04MethodTest extends PlainTestCase {
     }
 
     // write methods here
+    // TODO create empty lines between methods to make it more readable by zaya 2019/10/10
     private String replaceAtoB(String name) {
         String replaced = name.replace("A", "B");
         return replaced;
@@ -169,7 +173,9 @@ public class Step04MethodTest extends PlainTestCase {
         String replaced = name.replace("C", "B");
         return replaced;
     }
+    // TODO rename this local variables to match regular expression '^[a-z][a-zA-Z0-9]*$' by zaya 2019/10/10
     private String addPrefix(String name_1, String name_2) {
+        // TODO no need to make a variable here, when it is used only once later by zaya 2019/10/10
         String replaced = name_1+":"+name_2;
         return replaced;
     }
