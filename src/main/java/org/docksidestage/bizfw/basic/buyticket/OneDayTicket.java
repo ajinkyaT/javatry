@@ -16,6 +16,10 @@ public class OneDayTicket implements TicketInterface {
         return displayPrice;
     }
 
+    public String getTicketType() {
+        return "One Day Passport";
+    }
+
     public boolean isAlreadyIn() {
         return alreadyIn;
     }

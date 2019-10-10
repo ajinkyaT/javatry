@@ -15,8 +15,7 @@
  */
 package org.docksidestage.javatry.basic;
 
-import org.docksidestage.bizfw.basic.buyticket.Ticket;
-import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
+import org.docksidestage.bizfw.basic.buyticket.*;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth.TicketShortMoneyException;
 import org.docksidestage.bizfw.basic.buyticket.TicketBuyResult;
 import org.docksidestage.unit.PlainTestCase;
@@ -137,7 +136,7 @@ public class Step05ClassTest extends PlainTestCase {
     public void test_class_moreFix_return_ticket() {
 //         comment out after modifying the method
         TicketBooth booth = new TicketBooth();
-        Ticket oneDayPassport = booth.buyOneDayPassport(10000);
+        OneDayTicket oneDayPassport = booth.buyOneDayPassport(10000);
         log(oneDayPassport.getDisplayPrice()); // should be same as one-day price
         log(oneDayPassport.isAlreadyIn()); // should be false
         oneDayPassport.doInPark();
@@ -153,7 +152,7 @@ public class Step05ClassTest extends PlainTestCase {
         TicketBooth booth = new TicketBooth();
         int handedMoney = 20000;
         TicketBuyResult twoDayPassportResult = booth.buyTwoDayPassport(handedMoney);
-        Ticket twoDayPassport = twoDayPassportResult.getTicket();
+        Ticket twoDayPassport = (Ticket) twoDayPassportResult.getTicket();
         int change = twoDayPassportResult.getChange();
         log(twoDayPassport.getDisplayPrice() + change); // should be same as money
     }
@@ -166,12 +165,12 @@ public class Step05ClassTest extends PlainTestCase {
         // your confirmation code here
         TicketBooth booth = new TicketBooth();
         int handedMoney = 7400;
-        Ticket oneDayPassport = booth.buyOneDayPassport(handedMoney);
+        OneDayTicket oneDayPassport = booth.buyOneDayPassport(handedMoney);
         log(oneDayPassport.getTicketType());
 
         int handedMoney_new = 20000;
         TicketBuyResult twoDayPassportResult = booth.buyTwoDayPassport(handedMoney_new);
-        Ticket twoDayPassport = twoDayPassportResult.getTicket();
+        Ticket twoDayPassport = (Ticket) twoDayPassportResult.getTicket();
         log(twoDayPassport.getTicketType());
 
     }
@@ -197,7 +196,15 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_useInterface() {
         // your confirmation code here
+        TicketBooth booth = new TicketBooth();
+        int handedMoney = 7600;
+        OneDayTicket oneDayPassport = booth.buyOneDayPassport(handedMoney);
+        log(oneDayPassport.getTicketType());
 
+        int handedMoney_new = 20000;
+        TicketBuyResult twoDayPassportResult = booth.buyTwoDayPassport(handedMoney_new);
+        TicketInterface twoDayPassport =  twoDayPassportResult.getTicket();
+        log(twoDayPassport.getTicketType());
 
     }
 
@@ -207,6 +214,16 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_wonder() {
         // your confirmation code here
+        TicketBooth booth = new TicketBooth();
+        int handedMoney_new = 24000;
+        TicketBuyResult fourDayPassportResult = booth.buyFourDayPassport(handedMoney_new);
+        TicketInterface fourDayPassportPassport =  fourDayPassportResult.getTicket();
+        log(fourDayPassportPassport instanceof PluralDayTicket);
+        PluralDayTicket ticket = (PluralDayTicket) fourDayPassportPassport;
+        log(fourDayPassportPassport.getTicketType());
+        log("Change: " + fourDayPassportResult.getChange());
+        ticket.doInPark();
+        log("Checked in, days remaining : " + ticket.counterDays());
     }
 
     /**
@@ -214,6 +231,8 @@ public class Step05ClassTest extends PlainTestCase {
      * (その他、気になるところがあったらリファクタリングしてみましょう (例えば、バランスの良いメソッド名や変数名になっていますか？))
      */
     public void test_class_moreFix_yourRefactoring() {
+
         // write confirmation code here
+
     }
 }

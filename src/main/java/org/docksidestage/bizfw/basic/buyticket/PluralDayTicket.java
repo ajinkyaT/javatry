@@ -26,9 +26,9 @@ public class PluralDayTicket implements TicketInterface {
         return displayPrice;
     };
 
-    public int ticketType() {
-        return NoOfDays;
-    };
+    public String getTicketType() {
+        return NoOfDays + " Days ticket.";
+    }
 
     public int counterDays() {
         return counterDays;

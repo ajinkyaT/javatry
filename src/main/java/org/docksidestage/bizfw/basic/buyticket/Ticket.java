@@ -25,6 +25,7 @@ public class Ticket implements TicketInterface {
     //                                                                           =========
     private final int displayPrice;
     private boolean alreadyIn;
+    boolean oneDayTicket;
 
     // ===================================================================================
     //                                                                         Constructor
@@ -52,10 +53,10 @@ public class Ticket implements TicketInterface {
 
     public String getTicketType() {
 
-        if (displayPrice == 7400){
+        if (oneDayTicket){
             return "One Day Passport";
         } else  {
-            return "Two Day Passport";
+            return "Plural Day Passport";
         }
     }
 
