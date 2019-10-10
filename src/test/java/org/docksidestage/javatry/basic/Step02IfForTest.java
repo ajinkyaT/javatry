@@ -172,7 +172,7 @@ public class Step02IfForTest extends PlainTestCase {
                 listOfA.add(stage);
             }
         }
-        for (String stage : listOfA){
+        for (String stage : listOfA) {
             log(stage);
         }
     }
@@ -191,7 +191,7 @@ public class Step02IfForTest extends PlainTestCase {
         // Done TODO [ask] what happens if the stageList doesn't contain any "ga" in the list?
         // is the output same? by zaya 2019/10/09
         // no it won't be it will instead be null if I am not wrong
-        stageList.forEach(stage ->  {
+        stageList.forEach(stage -> {
             if (stage.contains("ga")) {
                 value[0] = stage;
             }
@@ -207,7 +207,7 @@ public class Step02IfForTest extends PlainTestCase {
      * <pre>
      * _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
      * your question here (ここにあなたの質問を):
-     * 
+     *
      * _/_/_/_/_/_/_/_/_/_/
      * </pre>
      */
@@ -216,13 +216,13 @@ public class Step02IfForTest extends PlainTestCase {
         List<String> stageList = prepareStageList();
         List<String> A_list = new ArrayList<>();
         for (String stage : stageList) {
-            // TODO fix noncompliant | by zaya 2019/10/09
-            // Sorry didn't get it, will try to ask for help
-            if ((stage.contains("a") | stage.contains("g"))){
+            //  DONE TODO fix noncompliant | by zaya 2019/10/09
+            //
+            if ((stage.contains("a") || stage.contains("g"))) {
                 A_list.add(stage);
             }
         }
-        for (String stage : A_list){
+        for (String stage : A_list) {
             log(stage);
         }
     }
