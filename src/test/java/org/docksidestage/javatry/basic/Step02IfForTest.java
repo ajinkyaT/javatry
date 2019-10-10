@@ -187,6 +187,19 @@ public class Step02IfForTest extends PlainTestCase {
     public void test_iffor_refactor_foreach_to_forEach() {
         List<String> stageList = prepareStageList();
         String sea = null;
+        // before
+        for (String stage : stageList) {
+            if (stage.startsWith("br")) {
+                continue;
+            }
+            sea = stage;
+            if (stage.contains("ga")) {
+                break;
+            }
+        }
+        log(sea); // should be same as before-fix
+
+        //after
         String[] value = { null };
         // Done TODO [ask] what happens if the stageList doesn't contain any "ga" in the list?
         // is the output same? by zaya 2019/10/09
