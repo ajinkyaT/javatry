@@ -24,7 +24,7 @@ import org.docksidestage.unit.PlainTestCase;
  * Operate as javadoc. If it's question style, write your answer before test execution. <br>
  * (javadocの通りに実施。質問形式の場合はテストを実行する前に考えて答えを書いてみましょう)
  * @author jflute
- * @author your_name_here
+ * @author Ajinkya Takawale
  */
 public class Step07ExceptionTest extends PlainTestCase {
 
@@ -51,35 +51,35 @@ public class Step07ExceptionTest extends PlainTestCase {
     public void test_exception_hierarchy_Runtime_instanceof_RuntimeException() {
         Object exp = new IllegalStateException("mystic");
         boolean sea = exp instanceof RuntimeException;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => True
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_exception_hierarchy_Runtime_instanceof_Exception() {
         Object exp = new IllegalStateException("mystic");
         boolean sea = exp instanceof Exception;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => True
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_exception_hierarchy_Runtime_instanceof_Error() {
         Object exp = new IllegalStateException("mystic");
         boolean sea = exp instanceof Error;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => False
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_exception_hierarchy_Runtime_instanceof_Throwable() {
         Object exp = new IllegalStateException("mystic");
         boolean sea = exp instanceof Throwable;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => True
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_exception_hierarchy_Throwable_instanceof_Exception() {
         Object exp = new Throwable("mystic");
         boolean sea = exp instanceof Exception;
-        log(sea); // your answer? => 
+        log(sea); // your answer? => False
     }
 
     // ===================================================================================
@@ -110,9 +110,9 @@ public class Step07ExceptionTest extends PlainTestCase {
             Throwable cause = e.getCause();
             sea = cause.getMessage();
             land = cause.getClass().getSimpleName();
-            log(sea); // your answer? => 
-            log(land); // your answer? => 
-            log(e); // your answer? => 
+            log(sea); // your answer? => <<< Step07ExceptionTest.test_exception_cause_basic() >>>
+            log(land); // your answer? => Failed to call the third help method: -1
+            log(e); // your answer? => IllegalArgumentException
         }
     }
 
@@ -157,9 +157,10 @@ public class Step07ExceptionTest extends PlainTestCase {
             // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
             // What happens? Write situation and cause here. (何が起きた？状況と原因をここに書いてみましょう)
             // - - - - - - - - - -
-            //
-            //
-            //
+            // Exception Message: The kawaii face is not useful to make screw: ScrewSpec:{\(^_^)/}
+            // Situation: SupercarDealer> SupercarManufacturer > get steering no. from SupercarEasyCatalog and pass to
+            // SupercarSteeringWheelManufacturer > get component from SupercarSteeringWheelComponentDB > pass kawaai face to SpecialScrewManufacturer
+            // > get RuntimeException error due to kawaai face.
             // _/_/_/_/_/_/_/_/_/_/
         }
     }
@@ -169,6 +170,7 @@ public class Step07ExceptionTest extends PlainTestCase {
      * by only exception information as far as possible. <br>
      * できるだけ例外情報だけでその状況が理解できるように、Supercarのクラスたちの例外ハンドリングを改善しましょう。
      */
+
     public void test_exception_translation_improveChallenge() {
         try {
             new SupercarClient().buySupercar(); // you can fix the classes
@@ -190,6 +192,10 @@ public class Step07ExceptionTest extends PlainTestCase {
             helpSurprisedYabaiCatch();
         } catch (St7ConstructorChallengeException e) {
             log("Thrown by help method", e); // should show also "Caused-by" information
+            Throwable cause = e.getCause();
+            log(cause.getMessage());
+            log(cause.getClass().getSimpleName());
+            log(e);
         }
     }
 
@@ -197,7 +203,7 @@ public class Step07ExceptionTest extends PlainTestCase {
         try {
             helpThrowIllegalState();
         } catch (IllegalStateException e) {
-            throw new St7ConstructorChallengeException("Failed to do something.");
+            throw new St7ConstructorChallengeException("Failed to do something.", e);
         }
     }
 

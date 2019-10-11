@@ -31,7 +31,14 @@ public class SupercarClient {
     public void buySupercar() {
         SupercarDealer dealer = createDealer();
         String clientRequirement = "steering wheel is like sea";
-        Supercar orderedCustomCar = dealer.orderSupercar(clientRequirement);
+        Supercar orderedCustomCar;
+        try {
+             orderedCustomCar = dealer.orderSupercar(clientRequirement);
+        } catch (IllegalStateException e) {
+            throw new RuntimeException("In class SupercarClient: Failed to call Supercar.\"\n"
+                    + "                    + \"orderSupercar(clientRequirement)\"");
+        }
+
         myCarList.add(orderedCustomCar);
     }
 

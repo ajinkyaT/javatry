@@ -36,7 +36,13 @@ public class SupercarSteeringWheelManufacturer {
         ScrewSpec screwSpec = new ScrewSpec(specText);
 
         SpecialScrewManufacturer manufacturer = createSpecialScrewManufacturer();
-        SpecialScrew screw = manufacturer.makeSpecialScrew(screwSpec);
+        SpecialScrew screw;
+        try {
+             screw = manufacturer.makeSpecialScrew(screwSpec);
+        } catch (RuntimeException  e){
+            throw new IllegalArgumentException(" in Class SupercarSteeringWheelManufacturer:"
+                    + " Failed to call SpecialScrew.makeSpecialScrew() because of kawaai face");
+        }
 
         return new SteeringWheel(screw);
     }
