@@ -154,6 +154,7 @@ public class Step01VariableTest extends PlainTestCase {
         ++land;
         // DONE TODO [ask] why this append didn't affect your answer? by zaya 2019/10/09
         // The String class is immutable
+        // But it is not String, it is StringBuilder by zaya 2019/10/11
         sea.append(land);
     }
 
@@ -165,8 +166,12 @@ public class Step01VariableTest extends PlainTestCase {
         StringBuilder sea = new StringBuilder("harbor");
         int land = 415;
         helpMethodArgumentVariable(sea, land);
-        // DONE TODO [ask] the method returns void, but in the method sea is changed, why it didn't change in the result?　 by zaya 2019/10/09
+        // DONE [ask] the method returns void, but in the method sea is changed, why it didn't change in the result?　 by zaya 2019/10/09
         // Java StringBuilder is mutable
+        // [continue] TODO yes, it is mutable, so it can be changed to harbor416,
+        // but in this case we have  sea = new StringBuilder(seaStr).append(land);
+        // sea is not changed because it is defined as new, so the pointer is different
+        // the new sea pointer is never returned, so the original sea is not changed by zaya 2019/10/11
         log(sea); // your answer? => harbor , no return value set or method returns void
     }
 
@@ -231,15 +236,23 @@ public class Step01VariableTest extends PlainTestCase {
         helpMethodArgumentImmutableMethodcall_final(sea,land);
         sea = helpMethodArgumentMutableMethodcall_final(sea, land);
         log(sea, land); //your answer: OceanIndian 8, 7
-        // DONE TODO clear empty lines, we don't want to use display space for nothing　 by zaya 2019/10/09
+        // DONE clear empty lines, we don't want to use display space for nothing　 by zaya 2019/10/09
         // but in case empty line makes your code more readable (by creating blocks) you can insert empty lines
         // - Thank you for the comment, got it!
     }
 
-    // DONE TODO what's the difference between mutable and immutable?　 by zaya 2019/10/09
+    // DONE what's the difference between mutable and immutable?　 by zaya 2019/10/09
     // [hint] returning value is not really related
     // immutable is something that cannot be changed once initialised, whereas in mutable it can be changed
     // We can make mutable Integer immutable by adding final in variable declaration
+    // [continue] TODO so String is immutable, so in helpMethodArgumentMutableMethodcall_final() method
+    //  string is not changed, it has been defined as new by sea = sea.concat(landStr);
+    // so the method name should be immutable, not mutable
+    //
+    // As a mutable object example, we have StringBuilder, it is mutable,
+    // that is why we can change it without defining it again, just by sea.append("appending"),
+    // we don't have to do sea = sea.append("appending")
+
     private String helpMethodArgumentMutableMethodcall_final(String sea, int land) {
         land = ++land;
         String landStr = "Indian " + String.valueOf(land);

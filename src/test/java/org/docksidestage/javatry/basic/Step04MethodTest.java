@@ -150,7 +150,7 @@ public class Step04MethodTest extends PlainTestCase {
      * o showSea(): 一つのString引数、戻り値なし、引数をlog()で表示する
      * </pre>
      */
-    //  DONE TODO create empty line between instance variable and a method,
+    //  DONE create empty line between instance variable and a method,
     //  instance variable can be used in any method, when there is no new line it looks like it's connected to the method
     //  [tips] IntelliJ auto formatting shortcut, option + command + l by zaya 2019/10/10
     // Thank you for the advice :)
@@ -167,7 +167,7 @@ public class Step04MethodTest extends PlainTestCase {
     }
 
     // write methods here
-    // DONE TODO create empty lines between methods to make it more readable by zaya 2019/10/10
+    // DONE create empty lines between methods to make it more readable by zaya 2019/10/10
 
     private String replaceAtoB(String name) {
         String replaced = name.replace("A", "B");
@@ -181,18 +181,18 @@ public class Step04MethodTest extends PlainTestCase {
     }
 
 
-    // DONE TODO rename this local variables to match regular expression '^[a-z][a-zA-Z0-9]*$' by zaya 2019/10/10
+    // DONE rename this local variables to match regular expression '^[a-z][a-zA-Z0-9]*$' by zaya 2019/10/10
     private String addPrefix(String name1, String name2) {
-        // DONE TODO no need to make a variable here, when it is used only once later by zaya 2019/10/10
+        // DONE no need to make a variable here, when it is used only once later by zaya 2019/10/10
         return name1 + ":" + name2;
     }
 
-
+    // made line between isAvailableLogging() and showSea() too by zaya 2019/10/11
     private Boolean isAvailableLogging() {
         return availableLogging;
     }
+
     private void showSea(String name) {
         log("in showSea: {}", name);
     }
-
 }

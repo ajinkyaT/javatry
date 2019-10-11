@@ -161,10 +161,10 @@ public class Step02IfForTest extends PlainTestCase {
      */
     public void test_iffor_making() {
         // write if-for here
-        // DONE TODO stageList is used only once, you don't have to make a variable here
+        // DONE stageList is used only once, you don't have to make a variable here
         // simpler and shorter the better by zaya 2019/10/09
         // removed stagelist
-        // TODO 'A_list' rename this local variable to match the regular expressions '^[a-z][a-zA-Z0-9]*$' by zaya 2019/10/09
+        // done 'A_list' rename this local variable to match the regular expressions '^[a-z][a-zA-Z0-9]*$' by zaya 2019/10/09
         // renamed variable
         List<String> listOfA = new ArrayList<>();
         for (String stage : prepareStageList()) {
@@ -201,9 +201,11 @@ public class Step02IfForTest extends PlainTestCase {
 
         //after
         String[] value = { null };
-        // Done TODO [ask] what happens if the stageList doesn't contain any "ga" in the list?
+        // Done [ask] what happens if the stageList doesn't contain any "ga" in the list?
         // is the output same? by zaya 2019/10/09
         // no it won't be it will instead be null if I am not wrong
+        // [continue] TODO yes, in the before, if the stageList doesn't contain any "ga", it will output "magiclamp"
+        // but in your code it's null, your code output should be same as before-fix by zaya 2019/10/11
         stageList.forEach(stage -> {
             if (stage.contains("ga")) {
                 value[0] = stage;
@@ -229,7 +231,7 @@ public class Step02IfForTest extends PlainTestCase {
         List<String> stageList = prepareStageList();
         List<String> A_list = new ArrayList<>();
         for (String stage : stageList) {
-            //  DONE TODO fix noncompliant | by zaya 2019/10/09
+            //  DONE fix noncompliant | by zaya 2019/10/09
             if ((stage.contains("a") || stage.contains("g"))) {
                 A_list.add(stage);
             }
