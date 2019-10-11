@@ -73,4 +73,5 @@ public class St6OperationSystem {
             throw new IllegalStateException("Unknown osType: " + osType);
         }
     }
+
 }
