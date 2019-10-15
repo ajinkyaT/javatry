@@ -17,10 +17,12 @@ package org.docksidestage.javatry.colorbox;
 
 import static java.lang.Integer.max;
 import static java.lang.Integer.min;
+
 import java.util.List;
 
 import org.docksidestage.bizfw.colorbox.ColorBox;
 import org.docksidestage.bizfw.colorbox.color.BoxColor;
+import org.docksidestage.bizfw.colorbox.space.BoxSpace;
 import org.docksidestage.bizfw.colorbox.yours.YourPrivateRoom;
 import org.docksidestage.unit.PlainTestCase;
 
@@ -63,21 +65,21 @@ public class Step11ClassicStringTest extends PlainTestCase {
      */
     public void test_length_findMax() {
         List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
-        if (!colorBoxList.isEmpty()) {
-            String colorName = "";
-            int length = 0;
-            for (ColorBox colorBox : colorBoxList){
-                BoxColor boxColor = colorBox.getColor();
-
-                if (boxColor.getColorName().length() > length){
-                    colorName = boxColor.getColorName();
-                    length = colorName.length();
+        String maxString = "";
+        int length = 0;
+        for (ColorBox colorBox : colorBoxList) {
+            for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                Object content = boxSpace.getContent();
+                if (content instanceof String) {
+                    if (((String) content).length() > length) {
+                        maxString = content.toString();
+                        length = maxString.length();
+                    }
                 }
             }
-            log(length + " (" + colorName + ")");
-        } else {
-            log("*not found");
-    }
+        }
+        log(length + " (" + maxString + ")");
+
     }
 
     /**
@@ -86,30 +88,35 @@ public class Step11ClassicStringTest extends PlainTestCase {
      */
     public void test_length_findMaxMinDiff() {
         List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
-        if (!colorBoxList.isEmpty()) {
-            String colorName = "";
-            String minLenColor = "";
-            int length = 0;
-            for (ColorBox colorBox : colorBoxList){
-                BoxColor boxColor = colorBox.getColor();
-
-                if (boxColor.getColorName().length() > length){
-                    colorName = boxColor.getColorName();
-                    length = colorName.length();
+        String maxString = "";
+        String minString = "";
+        int length = 0;
+        for (ColorBox colorBox : colorBoxList) {
+            for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                Object content = boxSpace.getContent();
+                if (content instanceof String) {
+                    if (((String) content).length() > length) {
+                        maxString = content.toString();
+                        length = maxString.length();
+                    }
                 }
             }
-            for (ColorBox colorBox : colorBoxList){
-                BoxColor boxColor = colorBox.getColor();
-
-                if (boxColor.getColorName().length() < length){
-                    minLenColor = boxColor.getColorName();
-                    length = minLenColor.length();
-                }
-            }
-            log("difference is: " + (colorName.length() - minLenColor.length()) + " (" + colorName, minLenColor+ ")");
-        } else {
-            log("*not found");
         }
+
+        for (ColorBox colorBox : colorBoxList) {
+            for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                Object content = boxSpace.getContent();
+                if (content instanceof String) {
+                    if (((String) content).length() < length) {
+                        minString = content.toString();
+                        length = maxString.length();
+                    }
+                }
+            }
+        }
+
+        log("difference is: " + (maxString.length() - minString.length()) + " (" + maxString, minString + ")");
+
     }
 
     /**
@@ -119,51 +126,78 @@ public class Step11ClassicStringTest extends PlainTestCase {
     public void test_length_findSecondMax() {
         List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
         if (!colorBoxList.isEmpty()) {
-            int length = max(colorBoxList.get(0).getColor().getColorName().length(),
-                    colorBoxList.get(0).getColor().getColorName().length());;
-            int secondMax = min(colorBoxList.get(0).getColor().getColorName().length(),
-                    colorBoxList.get(0).getColor().getColorName().length());
-
-            String colorName = "";
-            int where = 0;
-            int maxIndex = 0;
-            int index = 0;
-            for (ColorBox colorBox : colorBoxList){
-                BoxColor boxColor = colorBox.getColor();
-
-
-                if (boxColor.getColorName().length() > length){
-                    where = maxIndex;
-                    colorName = boxColor.getColorName();
-                    secondMax = length;
-                    length = colorName.length();
-                    maxIndex = index;
+            String maxString = "";
+            int length = 0;
+            int secondMax = 0;
+            String secondMaxString = "";
+            for (ColorBox colorBox : colorBoxList) {
+                for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    if (! (boxSpace.getContent() == null)) {
+                        String content = boxSpace.getContent().toString();
+                        if (content.length() > 0) {
+                            if (content.length() > length) {
+                                secondMaxString = maxString;
+                                secondMax = length;
+                                maxString = content;
+                                length = maxString.length();
+                            }
+                        }
+                    }
                 }
-
-                index++;
             }
-            log(secondMax + " , Second Max color is: "+ " (" + colorBoxList.get(where).getColor().getColorName() + ")");
-        } else {
-            log("*not found");
+            log(secondMax + "  ,Second max string is: " + " (" + secondMaxString + ")");
         }
     }
+
+    //    {
+    //        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+    //        if (!colorBoxList.isEmpty()) {
+    //            int length =
+    //                    max(colorBoxList.get(0).getColor().getColorName().length(), colorBoxList.get(0).getColor().getColorName().length());
+    //            ;
+    //            int secondMax =
+    //                    min(colorBoxList.get(0).getColor().getColorName().length(), colorBoxList.get(0).getColor().getColorName().length());
+    //
+    //            String colorName = "";
+    //            int where = 0;
+    //            int maxIndex = 0;
+    //            int index = 0;
+    //            for (ColorBox colorBox : colorBoxList) {
+    //                BoxColor boxColor = colorBox.getColor();
+    //
+    //                if (boxColor.getColorName().length() > length) {
+    //                    where = maxIndex;
+    //                    colorName = boxColor.getColorName();
+    //                    secondMax = length;
+    //                    length = colorName.length();
+    //                    maxIndex = index;
+    //                }
+    //
+    //                index++;
+    //            }
+    //            log(secondMax + " , Second Max color is: " + " (" + colorBoxList.get(where).getColor().getColorName() + ")");
+    //        } else {
+    //            log("*not found");
+    //        }
+    //    }
 
     /**
      * How many total lengths of strings in color-boxes? <br>
      * (カラーボックスに入ってる文字列の長さの合計は？)
      */
     public void test_length_calculateLengthSum() {
-        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
-        if (!colorBoxList.isEmpty()) {
-            int count = 0;
-            int index = 0;
-            int length = 0;
-            for (ColorBox colorBox : colorBoxList){
-//                length = colorBox.getColor().getColorName().length();
-                contents = colorBox.getSpaceList();
-           }
-
-
+        //        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        //        if (!colorBoxList.isEmpty()) {
+        //            int count = 0;
+        //            int index = 0;
+        //            int length = 0;
+        //            for (ColorBox colorBox : colorBoxList){
+        ////                length = colorBox.getColor().getColorName().length();
+        //                contents = colorBox.getSpaceList();
+        //           }
+        //
+        //
+        //    }
     }
 
     /**
