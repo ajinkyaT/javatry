@@ -149,38 +149,6 @@ public class Step11ClassicStringTest extends PlainTestCase {
         }
     }
 
-    //    {
-    //        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
-    //        if (!colorBoxList.isEmpty()) {
-    //            int length =
-    //                    max(colorBoxList.get(0).getColor().getColorName().length(), colorBoxList.get(0).getColor().getColorName().length());
-    //            ;
-    //            int secondMax =
-    //                    min(colorBoxList.get(0).getColor().getColorName().length(), colorBoxList.get(0).getColor().getColorName().length());
-    //
-    //            String colorName = "";
-    //            int where = 0;
-    //            int maxIndex = 0;
-    //            int index = 0;
-    //            for (ColorBox colorBox : colorBoxList) {
-    //                BoxColor boxColor = colorBox.getColor();
-    //
-    //                if (boxColor.getColorName().length() > length) {
-    //                    where = maxIndex;
-    //                    colorName = boxColor.getColorName();
-    //                    secondMax = length;
-    //                    length = colorName.length();
-    //                    maxIndex = index;
-    //                }
-    //
-    //                index++;
-    //            }
-    //            log(secondMax + " , Second Max color is: " + " (" + colorBoxList.get(where).getColor().getColorName() + ")");
-    //        } else {
-    //            log("*not found");
-    //        }
-    //    }
-
     /**
      * How many total lengths of strings in color-boxes? <br>
      * (カラーボックスに入ってる文字列の長さの合計は？)
