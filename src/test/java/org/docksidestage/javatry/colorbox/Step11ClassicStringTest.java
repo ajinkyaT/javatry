@@ -300,6 +300,23 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (カラーボックスに入ってる "front" で終わる文字列の最初の一文字は？)
      */
     public void test_substring_findFirstChar() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        String character = "";
+        if (!colorBoxList.isEmpty()) {
+            for (ColorBox colorBox : colorBoxList) {
+                for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    if (!(boxSpace.getContent() == null) && (boxSpace.getContent() instanceof String)) {
+                        String content = boxSpace.getContent().toString();
+                        if (content.length() > 0) {
+                            if (content.endsWith("front")) {
+                                character = content.substring(0,1);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        log("Last Index is: " + character);
     }
 
     /**
@@ -307,6 +324,23 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (カラーボックスに入ってる "Water" で始まる文字列の最後の一文字は？)
      */
     public void test_substring_findLastChar() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        String character = "";
+        if (!colorBoxList.isEmpty()) {
+            for (ColorBox colorBox : colorBoxList) {
+                for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    if (!(boxSpace.getContent() == null) && (boxSpace.getContent() instanceof String)) {
+                        String content = boxSpace.getContent().toString();
+                        if (content.length() > 0) {
+                            if (content.startsWith("Water")) {
+                                character = content.substring(content.length() - 1);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        log("Last Index is: " + character);
     }
 
     // ===================================================================================
