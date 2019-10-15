@@ -15,6 +15,8 @@
  */
 package org.docksidestage.javatry.colorbox;
 
+import static java.lang.Integer.max;
+import static java.lang.Integer.min;
 import java.util.List;
 
 import org.docksidestage.bizfw.colorbox.ColorBox;
@@ -115,6 +117,35 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (カラーボックスに入ってる値 (文字列以外はtoString()) の中で、二番目に長い文字列は？ (ソートなしで))
      */
     public void test_length_findSecondMax() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        if (!colorBoxList.isEmpty()) {
+            int length = max(colorBoxList.get(0).getColor().getColorName().length(),
+                    colorBoxList.get(0).getColor().getColorName().length());;
+            int secondMax = min(colorBoxList.get(0).getColor().getColorName().length(),
+                    colorBoxList.get(0).getColor().getColorName().length());
+
+            String colorName = "";
+            int where = 0;
+            int maxIndex = 0;
+            int index = 0;
+            for (ColorBox colorBox : colorBoxList){
+                BoxColor boxColor = colorBox.getColor();
+
+
+                if (boxColor.getColorName().length() > length){
+                    where = maxIndex;
+                    colorName = boxColor.getColorName();
+                    secondMax = length;
+                    length = colorName.length();
+                    maxIndex = index;
+                }
+
+                index++;
+            }
+            log(secondMax + " , Second Max color is: "+ " (" + colorBoxList.get(where).getColor().getColorName() + ")");
+        } else {
+            log("*not found");
+        }
     }
 
     /**
