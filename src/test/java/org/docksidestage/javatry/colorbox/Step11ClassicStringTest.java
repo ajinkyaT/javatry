@@ -31,7 +31,7 @@ import org.docksidestage.unit.PlainTestCase;
  * o don't fix the YourPrivateRoom class and color-box classes
  * </pre>
  * @author jflute
- * @author your_name_here
+ * @author Ajinkya Takawale
  */
 public class Step11ClassicStringTest extends PlainTestCase {
 
@@ -60,6 +60,22 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (カラーボックスに入ってる文字列の中で、一番長い文字列は？)
      */
     public void test_length_findMax() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        if (!colorBoxList.isEmpty()) {
+            String colorName = "";
+            int length = 0;
+            for (ColorBox colorBox : colorBoxList){
+                BoxColor boxColor = colorBox.getColor();
+
+                if (boxColor.getColorName().length() > length){
+                    colorName = boxColor.getColorName();
+                    length = colorName.length();
+                }
+            }
+            log(length + " (" + colorName + ")");
+        } else {
+            log("*not found");
+    }
     }
 
     /**
@@ -67,6 +83,31 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (カラーボックスに入ってる文字列の中で、一番長いものと短いものの差は何文字？)
      */
     public void test_length_findMaxMinDiff() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        if (!colorBoxList.isEmpty()) {
+            String colorName = "";
+            String minLenColor = "";
+            int length = 0;
+            for (ColorBox colorBox : colorBoxList){
+                BoxColor boxColor = colorBox.getColor();
+
+                if (boxColor.getColorName().length() > length){
+                    colorName = boxColor.getColorName();
+                    length = colorName.length();
+                }
+            }
+            for (ColorBox colorBox : colorBoxList){
+                BoxColor boxColor = colorBox.getColor();
+
+                if (boxColor.getColorName().length() < length){
+                    minLenColor = boxColor.getColorName();
+                    length = colorName.length();
+                }
+            }
+            log(length + " (" + colorName + ")");
+        } else {
+            log("*not found");
+        }
     }
 
     /**
