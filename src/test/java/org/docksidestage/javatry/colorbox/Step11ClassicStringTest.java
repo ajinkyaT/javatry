@@ -132,7 +132,7 @@ public class Step11ClassicStringTest extends PlainTestCase {
             String secondMaxString = "";
             for (ColorBox colorBox : colorBoxList) {
                 for (BoxSpace boxSpace : colorBox.getSpaceList()) {
-                    if (! (boxSpace.getContent() == null)) {
+                    if (!(boxSpace.getContent() == null)) {
                         String content = boxSpace.getContent().toString();
                         if (content.length() > 0) {
                             if (content.length() > length) {
@@ -154,25 +154,39 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (カラーボックスに入ってる文字列の長さの合計は？)
      */
     public void test_length_calculateLengthSum() {
-        //        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
-        //        if (!colorBoxList.isEmpty()) {
-        //            int count = 0;
-        //            int index = 0;
-        //            int length = 0;
-        //            for (ColorBox colorBox : colorBoxList){
-        ////                length = colorBox.getColor().getColorName().length();
-        //                contents = colorBox.getSpaceList();
-        //           }
-        //
-        //
-        //    }
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        int totalLength = 0;
+        if (!colorBoxList.isEmpty()) {
+            for (ColorBox colorBox : colorBoxList) {
+                for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    if (!(boxSpace.getContent() == null) && (boxSpace.getContent() instanceof String)) {
+                        String content = boxSpace.getContent().toString();
+                        if (content.length() > 0) {
+                            totalLength = totalLength + content.length();
+                        }
+                    }
+                }
+            }
+        }
+        log("Total length is: " + totalLength);
     }
-
     /**
      * Which color name has max length in color-boxes? <br>
      * (カラーボックスの中で、色の名前が一番長いものは？)
      */
     public void test_length_findMaxColorSize() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        int maxLength = 0;
+        String maxName = "";
+        if (!colorBoxList.isEmpty()) {
+            for (ColorBox colorBox : colorBoxList) {
+                if (colorBox.getColor().getColorName().length() > maxLength) {
+                    maxName = colorBox.getColor().getColorName();
+                    maxLength = maxName.length();
+                }
+            }
+        }
+        log("Max Length is: " + maxLength, "Color is: " + maxName);
     }
 
     // ===================================================================================
@@ -183,6 +197,23 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * ("Water" で始まる文字列をしまっているカラーボックスの色は？)
      */
     public void test_startsWith_findFirstWord() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        String color = "";
+        if (!colorBoxList.isEmpty()) {
+            for (ColorBox colorBox : colorBoxList) {
+                for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    if (!(boxSpace.getContent() == null) && (boxSpace.getContent() instanceof String)) {
+                        String content = boxSpace.getContent().toString();
+                        if (content.length() > 0) {
+                            if (content.startsWith("Water")) {
+                                color = colorBox.getColor().getColorName();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        log("Color is: " + color);
     }
 
     /**
@@ -190,6 +221,23 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * ("front" で終わる文字列をしまっているカラーボックスの色は？)
      */
     public void test_endsWith_findLastWord() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        String color = "";
+        if (!colorBoxList.isEmpty()) {
+            for (ColorBox colorBox : colorBoxList) {
+                for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    if (!(boxSpace.getContent() == null) && (boxSpace.getContent() instanceof String)) {
+                        String content = boxSpace.getContent().toString();
+                        if (content.length() > 0) {
+                            if (content.endsWith("front")) {
+                                color = colorBox.getColor().getColorName();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        log("Color is: " + color);
     }
 
     // ===================================================================================
