@@ -18,6 +18,7 @@ package org.docksidestage.javatry.colorbox;
 import static java.lang.Integer.max;
 import static java.lang.Integer.min;
 
+import java.io.File;
 import java.util.List;
 
 import org.docksidestage.bizfw.colorbox.ColorBox;
@@ -316,7 +317,7 @@ public class Step11ClassicStringTest extends PlainTestCase {
                 }
             }
         }
-        log("Last Index is: " + character);
+        log("First character is: " + character);
     }
 
     /**
@@ -340,7 +341,7 @@ public class Step11ClassicStringTest extends PlainTestCase {
                 }
             }
         }
-        log("Last Index is: " + character);
+        log("Last character is: " + character);
     }
 
     // ===================================================================================
@@ -351,6 +352,23 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (カラーボックスに入ってる "o" (おー) を含んだ文字列から "o" を全て除去したら何文字？)
      */
     public void test_replace_remove_o() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        int remainingCount = 0;
+        if (!colorBoxList.isEmpty()) {
+            for (ColorBox colorBox : colorBoxList) {
+                for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    if (!(boxSpace.getContent() == null) && (boxSpace.getContent() instanceof String)) {
+                        String content = boxSpace.getContent().toString();
+                        if (content.length() > 0) {
+                            if (content.contains("o")) {
+                                remainingCount = content.replace("o","").length();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        log("Remaining characters: " + remainingCount);
     }
 
     /**
@@ -358,6 +376,19 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * カラーボックスに入ってる java.io.File のパス文字列のファイルセパレーターの "/" を、Windowsのファイルセパレーターに置き換えた文字列は？
      */
     public void test_replace_fileseparator() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        String pathName = "";
+        if (!colorBoxList.isEmpty()) {
+            for (ColorBox colorBox : colorBoxList) {
+                for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    if (!(boxSpace.getContent() == null) && (boxSpace.getContent() instanceof File)) {
+                        File content = (File) boxSpace.getContent();
+                        pathName = content.getPath();
+                    }
+                }
+            }
+        }
+        log("Remaining characters: " + pathName);
     }
 
     // ===================================================================================
