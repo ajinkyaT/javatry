@@ -248,6 +248,23 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (カラーボックスに入ってる "front" で終わる文字列で、最初の "front" は何文字目から始まる？)
      */
     public void test_indexOf_findIndex() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        int index = 0;
+        if (!colorBoxList.isEmpty()) {
+            for (ColorBox colorBox : colorBoxList) {
+                for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    if (!(boxSpace.getContent() == null) && (boxSpace.getContent() instanceof String)) {
+                        String content = boxSpace.getContent().toString();
+                        if (content.length() > 0) {
+                            if (content.endsWith("front")) {
+                                index = content.indexOf("front");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        log("Index is: " + index);
     }
 
     /**
@@ -255,7 +272,25 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (カラーボックスに入ってる「ど」を二つ以上含む文字列で、最後の「ど」は何文字目から始まる？ (e.g. "どんどん" => 3))
      */
     public void test_lastIndexOf_findIndex() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        int index = 0;
+        if (!colorBoxList.isEmpty()) {
+            for (ColorBox colorBox : colorBoxList) {
+                for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    if (!(boxSpace.getContent() == null) && (boxSpace.getContent() instanceof String)) {
+                        String content = boxSpace.getContent().toString();
+                        if (content.length() > 0) {
+                            if (content.contains("ど")) {
+                                index = content.lastIndexOf("ど");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        log("Last Index is: " + index);
     }
+
 
     // ===================================================================================
     //                                                                         substring()
