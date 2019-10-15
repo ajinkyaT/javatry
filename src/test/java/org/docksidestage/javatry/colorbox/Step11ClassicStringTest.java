@@ -101,10 +101,10 @@ public class Step11ClassicStringTest extends PlainTestCase {
 
                 if (boxColor.getColorName().length() < length){
                     minLenColor = boxColor.getColorName();
-                    length = colorName.length();
+                    length = minLenColor.length();
                 }
             }
-            log(length + " (" + colorName + ")");
+            log("difference is: " + (colorName.length() - minLenColor.length()) + " (" + colorName, minLenColor+ ")");
         } else {
             log("*not found");
         }
