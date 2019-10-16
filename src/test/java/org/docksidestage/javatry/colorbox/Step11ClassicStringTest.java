@@ -292,7 +292,6 @@ public class Step11ClassicStringTest extends PlainTestCase {
         log("Last Index is: " + index);
     }
 
-
     // ===================================================================================
     //                                                                         substring()
     //                                                                         ===========
@@ -310,7 +309,7 @@ public class Step11ClassicStringTest extends PlainTestCase {
                         String content = boxSpace.getContent().toString();
                         if (content.length() > 0) {
                             if (content.endsWith("front")) {
-                                character = content.substring(0,1);
+                                character = content.substring(0, 1);
                             }
                         }
                     }
@@ -361,7 +360,7 @@ public class Step11ClassicStringTest extends PlainTestCase {
                         String content = boxSpace.getContent().toString();
                         if (content.length() > 0) {
                             if (content.contains("o")) {
-                                remainingCount = content.replace("o","").length();
+                                remainingCount = content.replace("o", "").length();
                             }
                         }
                     }
@@ -388,7 +387,7 @@ public class Step11ClassicStringTest extends PlainTestCase {
                 }
             }
         }
-        log("Remaining characters: " + pathName);
+        log("Path String: " + pathName);
     }
 
     // ===================================================================================
@@ -399,6 +398,29 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (カラーボックスの中に入っているDevilBoxクラスのtextの長さの合計は？)
      */
     public void test_welcomeToDevil() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        String pathName = "";
+        int length = 0;
+        if (!colorBoxList.isEmpty()) {
+            for (ColorBox colorBox : colorBoxList) {
+                for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    if (!(boxSpace.getContent() == null) && (boxSpace.getContent() instanceof YourPrivateRoom.DevilBox)) {
+                        YourPrivateRoom.DevilBox devil = (YourPrivateRoom.DevilBox) boxSpace.getContent();
+                        devil.wakeUp();
+                        devil.allowMe();
+                        devil.open();
+                        String text = "";
+                        try {
+                            text = devil.getText();
+                        } catch (YourPrivateRoom.DevilBoxTextNotFoundException e){
+                            log("Message: ", e);
+                        }
+                        length = length + text.length();
+                    }
+                }
+            }
+        }
+        log("Total Length is: " + length);
     }
 
     // ===================================================================================
@@ -409,6 +431,7 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (カラーボックスの中に入っている java.util.Map を "map:{ key = value ; key = value ; ... }" という形式で表示すると？)
      */
     public void test_showMap_flat() {
+
     }
 
     /**
