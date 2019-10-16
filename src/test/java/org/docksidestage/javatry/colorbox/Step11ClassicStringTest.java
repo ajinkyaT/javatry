@@ -109,6 +109,7 @@ public class Step11ClassicStringTest extends PlainTestCase {
             for (BoxSpace boxSpace : colorBox.getSpaceList()) {
                 Object content = boxSpace.getContent();
                 if (content instanceof String) {
+                    // TODO ajinkya It's good, but if 'if sentence' move into previous for sentence, you can reduce for loop steps. by ちーかま
                     if (((String) content).length() < length) {
                         minString = content.toString();
                         length = maxString.length();
@@ -137,6 +138,7 @@ public class Step11ClassicStringTest extends PlainTestCase {
                     if (!(boxSpace.getContent() == null)) {
                         String content = boxSpace.getContent().toString();
                         if (content.length() > 0) {
+                            // TODO ajinkya please confirm,　if content.length() is between length and secondMax by ちーかま
                             if (content.length() > length) {
                                 secondMaxString = maxString;
                                 secondMax = length;
@@ -161,6 +163,7 @@ public class Step11ClassicStringTest extends PlainTestCase {
         if (!colorBoxList.isEmpty()) {
             for (ColorBox colorBox : colorBoxList) {
                 for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    // TODO ajinkya please reformat !(boxSpace.getContent() == null) -> boxSpace.getContent() != null by ちーかま
                     if (!(boxSpace.getContent() == null) && (boxSpace.getContent() instanceof String)) {
                         String content = boxSpace.getContent().toString();
                         if (content.length() > 0) {
