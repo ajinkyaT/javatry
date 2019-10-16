@@ -399,7 +399,6 @@ public class Step11ClassicStringTest extends PlainTestCase {
      */
     public void test_welcomeToDevil() {
         List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
-        String pathName = "";
         int length = 0;
         if (!colorBoxList.isEmpty()) {
             for (ColorBox colorBox : colorBoxList) {
