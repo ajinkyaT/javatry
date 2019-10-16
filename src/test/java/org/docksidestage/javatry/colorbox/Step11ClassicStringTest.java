@@ -90,27 +90,19 @@ public class Step11ClassicStringTest extends PlainTestCase {
         List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
         String maxString = "";
         String minString = "";
-        int length = 0;
+        int maxLength = 0;
+        int minLength = 0;
         for (ColorBox colorBox : colorBoxList) {
             for (BoxSpace boxSpace : colorBox.getSpaceList()) {
                 Object content = boxSpace.getContent();
                 if (content instanceof String) {
-                    if (((String) content).length() > length) {
+                    if (((String) content).length() > maxLength) {
                         maxString = content.toString();
-                        length = maxString.length();
+                        maxLength = maxString.length();
                     }
-                }
-            }
-        }
-
-        for (ColorBox colorBox : colorBoxList) {
-            for (BoxSpace boxSpace : colorBox.getSpaceList()) {
-                Object content = boxSpace.getContent();
-                if (content instanceof String) {
-                    // TODO ajinkya It's good, but if 'if sentence' move into previous for sentence, you can reduce for loop steps. by ちーかま
-                    if (((String) content).length() < length) {
-                        minString = content.toString();
-                        length = maxString.length();
+                    if (((String) content).length() < minLength) {  //DONE TODO ajinkya It's good, but if 'if sentence' move into previous
+                        minString = content.toString();             // for sentence, you can reduce for loop steps. by ちーかま
+                        minLength = minString.length();
                     }
                 }
             }
@@ -137,6 +129,7 @@ public class Step11ClassicStringTest extends PlainTestCase {
                         String content = boxSpace.getContent().toString();
                         if (content.length() > 0) {
                             // TODO ajinkya please confirm,　if content.length() is between length and secondMax by ちーかま
+                            // DONE : content.length() is > length and secondMax is always <= length
                             if (content.length() > length) {
                                 secondMaxString = maxString;
                                 secondMax = length;
@@ -161,8 +154,8 @@ public class Step11ClassicStringTest extends PlainTestCase {
         if (!colorBoxList.isEmpty()) {
             for (ColorBox colorBox : colorBoxList) {
                 for (BoxSpace boxSpace : colorBox.getSpaceList()) {
-                    // TODO ajinkya please reformat !(boxSpace.getContent() == null) -> boxSpace.getContent() != null by ちーかま
-                    if (!(boxSpace.getContent() == null) && (boxSpace.getContent() instanceof String)) {
+                    // DONE TODO ajinkya please reformat !(boxSpace.getContent() == null) -> boxSpace.getContent() != null by ちーかま
+                    if ((boxSpace.getContent() != null) && (boxSpace.getContent() instanceof String)) {
                         String content = boxSpace.getContent().toString();
                         if (content.length() > 0) {
                             totalLength = totalLength + content.length();
@@ -510,11 +503,11 @@ public class Step11ClassicStringTest extends PlainTestCase {
         BoxSpace upperSpace = spacelist.get(0);
         YourPrivateRoom.SecretBox content = (YourPrivateRoom.SecretBox) upperSpace.getContent();
         String value = content.getText();
-        value = value.substring(5, value.length()-1);           //remove curly brackets
+        value = value.substring(5, value.length() - 1);           //remove curly brackets
         String[] keyValuePairs = value.split(";");              //split the string to creat key-value pairs
         Map<String, String> map = new HashMap<>();
 
-        for(String pair : keyValuePairs)                        //iterate over the pairs
+        for (String pair : keyValuePairs)                        //iterate over the pairs
         {
             String[] entry = pair.split("=");                   //split the pairs to get key and value
             map.put(entry[0].trim(), entry[1].trim());          //add them to the hashmap and trim whitespaces
