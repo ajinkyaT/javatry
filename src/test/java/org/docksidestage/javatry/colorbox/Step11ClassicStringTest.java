@@ -15,10 +15,8 @@
  */
 package org.docksidestage.javatry.colorbox;
 
-import static java.lang.Integer.max;
-import static java.lang.Integer.min;
-
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -483,6 +481,20 @@ public class Step11ClassicStringTest extends PlainTestCase {
         }
     }
 
+    public String helperMapParser(String key, Map digMap) {
+        String result = "";
+        result = result + key + " = map:{ ";
+        for (Map.Entry<String, Object> nestEntry : ((Map<String, Object>) digMap).entrySet()) {
+            String nestKey = nestEntry.getKey();
+            Object nestValue = nestEntry.getValue();
+            if (nestValue instanceof Map) {
+                result = result + helperMapParser(nestKey, (Map) nestValue) + " ; ";
+            } else
+                result = result + nestKey + " = " + nestValue + " ; ";
+        }
+        result = result.substring(0, result.length() - 2) + " }";
+        return result;
+    }
     // ===================================================================================
     //                                                                           Good Luck
     //                                                                           =========
@@ -490,21 +502,24 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * What string of toString() is converted from text of SecretBox class in upper space on the "white" color-box to java.util.Map? <br>
      * (whiteのカラーボックスのupperスペースに入っているSecretBoxクラスのtextをMapに変換してtoString()すると？)
      */
-    public String helperMapParser(String key, Map digMap) {
-        String result = "";
-        result = result + key + " = map:{ ";
-        for (Map.Entry<String, Object> nestEntry : ((Map<String, Object>) digMap).entrySet()) {
-            String nestKey = nestEntry.getKey();
-            Object nestValue = nestEntry.getValue();
-            if (nestValue instanceof Map){
-                result = result + helperMapParser(nestKey, (Map) nestValue) + " ; ";
-            } else result = result + nestKey + " = " + nestValue + " ; ";
-        }
-        result = result.substring(0, result.length() - 2) + " }";
-        return result;
-    }
 
     public void test_parseMap_flat() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        ColorBox colorBox = colorBoxList.get(4); //whiteClass
+        List<BoxSpace> spacelist = colorBox.getSpaceList();
+        BoxSpace upperSpace = spacelist.get(0);
+        YourPrivateRoom.SecretBox content = (YourPrivateRoom.SecretBox) upperSpace.getContent();
+        String value = content.getText();
+        value = value.substring(5, value.length()-1);           //remove curly brackets
+        String[] keyValuePairs = value.split(";");              //split the string to creat key-value pairs
+        Map<String, String> map = new HashMap<>();
+
+        for(String pair : keyValuePairs)                        //iterate over the pairs
+        {
+            String[] entry = pair.split("=");                   //split the pairs to get key and value
+            map.put(entry[0].trim(), entry[1].trim());          //add them to the hashmap and trim whitespaces
+        }
+        log(map);
     }
 
     /**
@@ -512,5 +527,6 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (whiteのカラーボックスのmiddleおよびlowerスペースに入っているSecretBoxクラスのtextをMapに変換してtoString()すると？)
      */
     public void test_parseMap_nested() {
+
     }
 }
