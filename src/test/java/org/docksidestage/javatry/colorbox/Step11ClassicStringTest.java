@@ -20,6 +20,7 @@ import static java.lang.Integer.min;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 import org.docksidestage.bizfw.colorbox.ColorBox;
 import org.docksidestage.bizfw.colorbox.color.BoxColor;
@@ -411,7 +412,7 @@ public class Step11ClassicStringTest extends PlainTestCase {
                         String text = "";
                         try {
                             text = devil.getText();
-                        } catch (YourPrivateRoom.DevilBoxTextNotFoundException e){
+                        } catch (YourPrivateRoom.DevilBoxTextNotFoundException e) {
                             log("Message: ", e);
                         }
                         length = length + text.length();
@@ -430,7 +431,24 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (カラーボックスの中に入っている java.util.Map を "map:{ key = value ; key = value ; ... }" という形式で表示すると？)
      */
     public void test_showMap_flat() {
-
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        if (!colorBoxList.isEmpty()) {
+            for (ColorBox colorBox : colorBoxList) {
+                for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    if (!(boxSpace.getContent() == null) && (boxSpace.getContent() instanceof java.util.Map)) {
+                        String result = "map:{ ";
+                        Map<String, Object> gotMap = (Map<String, Object>) boxSpace.getContent();
+                        for (Map.Entry<String, Object> entry : gotMap.entrySet()) {
+                            String key = entry.getKey();
+                            Object value = entry.getValue();
+                            result = result + key + " = " + value + " ; ";
+                        }
+                        result = result.substring(0, result.length() - 3) + " }";
+                        log("Found map: ", result);
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -438,6 +456,28 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * (カラーボックスの中に入っている java.util.Map を "map:{ key = value ; key = map:{ key = value ; ... } ; ... }" という形式で表示すると？)
      */
     public void test_showMap_nested() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        if (!colorBoxList.isEmpty()) {
+            for (ColorBox colorBox : colorBoxList) {
+                for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    if (!(boxSpace.getContent() == null) && (boxSpace.getContent() instanceof java.util.Map)) {
+                        String result = "map:{ ";
+                        Map<String, Object> gotMap = (Map<String, Object>) boxSpace.getContent();
+                        for (Map.Entry<String, Object> entry : gotMap.entrySet()) {
+                            String key = entry.getKey();
+                            Object value = entry.getValue();
+                            if (value instanceof Map) {
+                                result = result + helperMapParser(key, (Map) value) + " ; ";
+                            } else {
+                                result = result + key + " = " + value + " ; ";
+                            }
+                        }
+                        result = result.substring(0, result.length() - 3) + " }";
+                        log("Found map: ", result);
+                    }
+                }
+            }
+        }
     }
 
     // ===================================================================================
@@ -447,6 +487,20 @@ public class Step11ClassicStringTest extends PlainTestCase {
      * What string of toString() is converted from text of SecretBox class in upper space on the "white" color-box to java.util.Map? <br>
      * (whiteのカラーボックスのupperスペースに入っているSecretBoxクラスのtextをMapに変換してtoString()すると？)
      */
+    public String helperMapParser(String key, Map digMap) {
+        String result = "";
+        result = result + key + " = map:{ ";
+        for (Map.Entry<String, Object> nestEntry : ((Map<String, Object>) digMap).entrySet()) {
+            String nestKey = nestEntry.getKey();
+            Object nestValue = nestEntry.getValue();
+            if (nestValue instanceof Map){
+                result = result + helperMapParser(nestKey, (Map) nestValue) + " ; ";
+            } else result = result + nestKey + " = " + nestValue + " ; ";
+        }
+        result = result.substring(0, result.length() - 2) + " }";
+        return result;
+    }
+
     public void test_parseMap_flat() {
     }
 
