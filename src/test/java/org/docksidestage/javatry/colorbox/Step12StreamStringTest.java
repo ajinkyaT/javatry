@@ -15,10 +15,8 @@
  */
 package org.docksidestage.javatry.colorbox;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.io.File;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.docksidestage.bizfw.colorbox.ColorBox;
@@ -200,6 +198,18 @@ public class Step12StreamStringTest extends PlainTestCase {
      * (カラーボックスに入ってる「ど」を二つ以上含む文字列で、最後の「ど」は何文字目から始まる？ (e.g. "どんどん" => 3))
      */
     public void test_lastIndexOf_findIndex() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        String contentString = colorBoxList.stream()
+                .flatMap(colorBox -> colorBox.getSpaceList().stream())
+                .filter(boxSpace -> boxSpace.getContent() instanceof String && boxSpace.getContent().toString().contains("ど"))
+                .map(boxSpace -> boxSpace.getContent().toString())
+                .findFirst()
+                .orElse("*not found");
+
+        int index = contentString.lastIndexOf("ど");
+
+        log("Character index is : " + index);
+
     }
 
     // ===================================================================================
@@ -210,6 +220,16 @@ public class Step12StreamStringTest extends PlainTestCase {
      * (カラーボックスに入ってる "front" で終わる文字列の最初の一文字は？)
      */
     public void test_substring_findFirstChar() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        String contentString = colorBoxList.stream()
+                .flatMap(colorBox -> colorBox.getSpaceList().stream())
+                .filter(boxSpace -> boxSpace.getContent() instanceof String && boxSpace.getContent().toString().endsWith("front"))
+                .map(boxSpace -> boxSpace.getContent().toString())
+                .findFirst()
+                .orElse("*not found");
+
+        log("Character is : " + contentString.substring(0, 1));
+
     }
 
     /**
@@ -217,6 +237,16 @@ public class Step12StreamStringTest extends PlainTestCase {
      * (カラーボックスに入ってる "Water" で始まる文字列の最後の一文字は？)
      */
     public void test_substring_findLastChar() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        String contentString = colorBoxList.stream()
+                .flatMap(colorBox -> colorBox.getSpaceList().stream())
+                .filter(boxSpace -> boxSpace.getContent() instanceof String && boxSpace.getContent().toString().startsWith("Water"))
+                .map(boxSpace -> boxSpace.getContent().toString())
+                .findFirst()
+                .orElse("*not found");
+
+        log("Character is : " + contentString.substring(contentString.length() - 1));
+
     }
 
     // ===================================================================================
@@ -227,6 +257,17 @@ public class Step12StreamStringTest extends PlainTestCase {
      * (カラーボックスに入ってる "o" (おー) を含んだ文字列から "o" を全て除去したら何文字？)
      */
     public void test_replace_remove_o() {
+
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        String contentString = colorBoxList.stream()
+                .flatMap(colorBox -> colorBox.getSpaceList().stream())
+                .filter(boxSpace -> boxSpace.getContent() instanceof String && boxSpace.getContent().toString().contains("o"))
+                .map(boxSpace -> boxSpace.getContent().toString())
+                .findFirst()
+                .orElse("*not found");
+
+        log("Number of remaining characters is : " + contentString.replace("o", "").length());
+
     }
 
     /**
@@ -234,6 +275,15 @@ public class Step12StreamStringTest extends PlainTestCase {
      * カラーボックスに入ってる java.io.File のパス文字列のファイルセパレーターの "/" を、Windowsのファイルセパレーターに置き換えた文字列は？
      */
     public void test_replace_fileseparator() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        String pathName = colorBoxList.stream()
+                .flatMap(colorBox -> colorBox.getSpaceList().stream())
+                .filter(boxSpace -> boxSpace.getContent() instanceof File)
+                .map(boxSpace -> ((File) boxSpace.getContent()).getPath())
+                .findFirst()
+                .orElse("*not found");
+
+        log("Path String: " + pathName);
     }
 
     // ===================================================================================
@@ -244,6 +294,26 @@ public class Step12StreamStringTest extends PlainTestCase {
      * (カラーボックスの中に入っているDevilBoxクラスのtextの長さの合計は？)
      */
     public void test_welcomeToDevil() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        List<String> text = colorBoxList.stream()
+                .flatMap(colorBox -> colorBox.getSpaceList().stream())
+                .filter(boxSpace -> boxSpace.getContent() != null && boxSpace.getContent() instanceof YourPrivateRoom.DevilBox)
+                .map(boxSpace -> {
+                    YourPrivateRoom.DevilBox devil = (YourPrivateRoom.DevilBox) boxSpace.getContent();
+                    devil.wakeUp();
+                    devil.allowMe();
+                    devil.open();
+                    String boxText = "";
+                    try {
+                        boxText = devil.getText();
+                    } catch (YourPrivateRoom.DevilBoxTextNotFoundException e) {
+                        log("Message: ", e);
+                    }
+                    return boxText;
+                })
+                .collect(Collectors.toList());
+
+        log("Total Length is: " + text.stream().mapToInt(tex -> tex.length()).sum());
     }
 
     // ===================================================================================
@@ -254,13 +324,73 @@ public class Step12StreamStringTest extends PlainTestCase {
      * (カラーボックスの中に入っている java.util.Map を "map:{ key = value ; key = value ; ... }" という形式で表示すると？)
      */
     public void test_showMap_flat() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        colorBoxList.stream()
+                .flatMap(colorBox -> colorBox.getSpaceList().stream())
+                .filter(boxSpace -> boxSpace.getContent() != null && boxSpace.getContent() instanceof Map)
+                .map(boxSpace -> {
+                    if (!(boxSpace.getContent() == null) && (boxSpace.getContent() instanceof Map)) {
+                        String result = "map:{ ";
+                        Map<String, Object> gotMap = (Map<String, Object>) boxSpace.getContent();
+                        for (Map.Entry<String, Object> entry : gotMap.entrySet()) {
+                            String key = entry.getKey();
+                            Object value = entry.getValue();
+                            result = result + key + " = " + value + " ; ";
+                        }
+                        result = result.substring(0, result.length() - 3) + " }";
+                        log("Found map: ", result);
+                    }
+                    return null;
+                })
+                .collect(Collectors.toList());
     }
+
+
 
     /**
      * What string is converted to style "map:{ key = value ; key = map:{ key = value ; ... } ; ... }" from java.util.Map in color-boxes? <br>
      * (カラーボックスの中に入っている java.util.Map を "map:{ key = value ; key = map:{ key = value ; ... } ; ... }" という形式で表示すると？)
      */
     public void test_showMap_nested() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        colorBoxList.stream()
+                .flatMap(colorBox -> colorBox.getSpaceList().stream())
+                .filter(boxSpace -> boxSpace.getContent() != null && boxSpace.getContent() instanceof Map)
+                .map(boxSpace -> {
+                    if (!(boxSpace.getContent() == null) && (boxSpace.getContent() instanceof java.util.Map)) {
+                    String result = "map:{ ";
+                    Map<String, Object> gotMap = (Map<String, Object>) boxSpace.getContent();
+                    for (Map.Entry<String, Object> entry : gotMap.entrySet()) {
+                        String key = entry.getKey();
+                        Object value = entry.getValue();
+                        if (value instanceof Map) {
+                            result = result + helperMapParser(key, (Map) value) + " ; ";
+                        } else {
+                            result = result + key + " = " + value + " ; ";
+                        }
+                    }
+                    result = result.substring(0, result.length() - 3) + " }";
+                    log("Found map: ", result);
+                    return  result;
+                }
+                    return null;
+                })
+                .collect(Collectors.toList());
+    }
+
+    public String helperMapParser(String key, Map digMap) {
+        String result = "";
+        result = result + key + " = map:{ ";
+        for (Map.Entry<String, Object> nestEntry : ((Map<String, Object>) digMap).entrySet()) {
+            String nestKey = nestEntry.getKey();
+            Object nestValue = nestEntry.getValue();
+            if (nestValue instanceof Map) {
+                result = result + helperMapParser(nestKey, (Map) nestValue) + " ; ";
+            } else
+                result = result + nestKey + " = " + nestValue + " ; ";
+        }
+        result = result.substring(0, result.length() - 2) + " }";
+        return result;
     }
 
     // ===================================================================================
