@@ -3,6 +3,7 @@ package org.docksidestage.bizfw.basic.buyticket;
 public class PluralDayTicket implements TicketInterface {
 
     private int displayPrice;
+    // TODO fix to noOfDays or numberOfDays by zaya 2019/10/17
     private int NoOfDays;
     private int counterDays;
     private boolean alreadyIn;
@@ -20,6 +21,7 @@ public class PluralDayTicket implements TicketInterface {
         }
         alreadyIn = true;
         --counterDays;
+        // TODO no need for ; after } by zaya 2019/10/17
     };
 
     public int getDisplayPrice() {

@@ -1,6 +1,7 @@
 package org.docksidestage.bizfw.basic.buyticket;
 
 public class TicketBuyResult{
+    // TODO start variable with small letter? by zaya 2019/10/17
     private static int DisplayPrice;
     private int change;
     private boolean oneDayTicket;
