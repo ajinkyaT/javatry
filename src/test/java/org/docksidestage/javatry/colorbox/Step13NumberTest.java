@@ -15,6 +15,11 @@
  */
 package org.docksidestage.javatry.colorbox;
 
+import java.util.List;
+
+import org.docksidestage.bizfw.colorbox.ColorBox;
+import org.docksidestage.bizfw.colorbox.space.BoxSpace;
+import org.docksidestage.bizfw.colorbox.yours.YourPrivateRoom;
 import org.docksidestage.unit.PlainTestCase;
 
 /**
@@ -33,6 +38,22 @@ public class Step13NumberTest extends PlainTestCase {
      * (カラーボックの中に入っているInteger型で、0から54までの値は何個ある？)
      */
     public void test_countZeroToFiftyFour_IntegerOnly() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        String maxString = "";
+        int count = 0;
+        for (ColorBox colorBox : colorBoxList) {
+            for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                Object content = boxSpace.getContent();
+                if (content instanceof Integer ) {
+                    if ( ((Integer) content) > 0 && ((Integer) content) < 54) {
+                        count++;
+                    }
+                }
+            }
+        }
+
+        log("Total count: " + count);
+
     }
 
     /**
@@ -40,6 +61,22 @@ public class Step13NumberTest extends PlainTestCase {
      * (カラーボックの中に入っている数値で、0から54までの値は何個ある？)
      */
     public void test_countZeroToFiftyFour_Number() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        String maxString = "";
+        int count = 0;
+        for (ColorBox colorBox : colorBoxList) {
+            for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                Object content = boxSpace.getContent();
+                if (content instanceof Number ) {
+                    if ( ( ((Number) content).intValue()) > 0 && ( ((Number) content).intValue()) < 54) {
+                        count++;
+                    }
+                }
+            }
+        }
+
+        log("Total count: " + count);
+
     }
 
     /**
