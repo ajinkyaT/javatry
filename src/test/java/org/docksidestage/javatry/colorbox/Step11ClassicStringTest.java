@@ -78,6 +78,7 @@ public class Step11ClassicStringTest extends PlainTestCase {
                 }
             }
         }
+
         log(length + " (" + maxString + ")");
 
     }
@@ -89,9 +90,9 @@ public class Step11ClassicStringTest extends PlainTestCase {
     public void test_length_findMaxMinDiff() {
         List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
         String maxString = "";
-        String minString = "";
+        String minString = "initialLongStringToStart";
         int maxLength = 0;
-        int minLength = 0;
+        int minLength = minString.length();
         for (ColorBox colorBox : colorBoxList) {
             for (BoxSpace boxSpace : colorBox.getSpaceList()) {
                 Object content = boxSpace.getContent();
@@ -109,7 +110,6 @@ public class Step11ClassicStringTest extends PlainTestCase {
         }
 
         log("difference is: " + (maxString.length() - minString.length()) + " (" + maxString, minString + ")");
-
     }
 
     /**

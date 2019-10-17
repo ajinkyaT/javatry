@@ -251,7 +251,7 @@ public class Step08Java8FunctionTest extends PlainTestCase {
     public void test_java8_optional_orElseThrow() {
         Optional<St8Member> optMember = new St8DbFacade().selectMember(2);
         St8Member member = optMember.orElseThrow(() -> new IllegalStateException("over"));
-        String sea = "the";
+        String sea;
         try {
             String reason = member.getWithdrawal().map(wdl -> wdl.oldgetPrimaryReason()).orElseThrow(() -> {
                 return new IllegalStateException("wave");
