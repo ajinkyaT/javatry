@@ -186,7 +186,7 @@ public class Step13NumberTest extends PlainTestCase {
                 sum = sum + intValue;
             }
         log("Total is: ",sum);
-        
+
     }
 }
 

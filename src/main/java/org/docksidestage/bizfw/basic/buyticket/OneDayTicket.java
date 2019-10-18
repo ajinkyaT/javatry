@@ -1,6 +1,6 @@
 package org.docksidestage.bizfw.basic.buyticket;
 
-public class OneDayTicket implements TicketInterface {
+public class OneDayTicket implements Ticket {
 
     private final int displayPrice = 7400;
     private boolean alreadyIn;

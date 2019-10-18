@@ -55,11 +55,11 @@ public class TicketBooth {
     }
 
     public TicketBuyResult buyTwoDayPassport(int handedMoney) {
-        // TODO you have nice method there named buyAnyDayPassport()
+        // DONE TODO you have nice method there named buyAnyDayPassport()
         //  so you can just
         //  return buyAnyDayPassport(TWO_DAY_PRICE, handedMoney, 2); by zaya 2019/10/17
         change = buyTicket(TWO_DAY_PRICE, handedMoney);
-        return new TicketBuyResult(change, TWO_DAY_PRICE, false, 2);
+        return buyAnyDayPassport(TWO_DAY_PRICE, handedMoney, 2);
     }
 
     public TicketBuyResult buyFourDayPassport(int handedMoney) {
@@ -67,10 +67,9 @@ public class TicketBooth {
         return new TicketBuyResult(change, FOUR_DAY_PRICE, false, 4);
     }
 
-    // TODO bit long method here, you can refactor by creating new handlingMoney() method? or smth like that if you want to by zaya 2019/10/17
-    private int buyTicket(int displayPrice, int handedMoney){
-        // TODO redeclared, first one in L36 by zaya 2019/10/17
-        int change = 0;
+    // DONE TODO bit long method here, you can refactor by creating new handlingMoney() method? or smth like that if you want to by zaya 2019/10/17
+    private int buyTicket(int displayPrice, int handedMoney) {
+        // DONE TODO redeclared, first one in L36 by zaya 2019/10/17
         if (quantity <= 0) {
             throw new TicketSoldOutException("Sold out");
         }
@@ -78,6 +77,12 @@ public class TicketBooth {
             throw new TicketShortMoneyException("Short money: " + (displayPrice - handedMoney));
         }
         --quantity;
+        change = handlingMoney(displayPrice, handedMoney);
+        return change;
+
+    }
+
+    private int handlingMoney(int displayPrice, int handedMoney ){
         if (salesProceeds != null) {
             salesProceeds = salesProceeds + displayPrice;
         } else {
@@ -88,8 +93,7 @@ public class TicketBooth {
             change = handedMoney - displayPrice;
         }
         return change;
-        }
-
+    }
 
     public static class TicketSoldOutException extends RuntimeException {
 
@@ -115,7 +119,6 @@ public class TicketBooth {
     public int getQuantity() {
         return quantity;
     }
-
 
     public Integer getSalesProceeds() {
         return salesProceeds;

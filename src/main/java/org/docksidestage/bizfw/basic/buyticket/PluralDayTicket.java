@@ -1,15 +1,15 @@
 package org.docksidestage.bizfw.basic.buyticket;
 
-public class PluralDayTicket implements TicketInterface {
+public class PluralDayTicket implements Ticket {
 
     private int displayPrice;
-    // TODO fix to noOfDays or numberOfDays by zaya 2019/10/17
-    private int NoOfDays;
+    // DONE TODO fix to noOfDays or numberOfDays by zaya 2019/10/17
+    private int numberOfDays;
     private int counterDays;
     private boolean alreadyIn;
 
     public PluralDayTicket(int numberOfDays ,int displayPrice) {
-        this.NoOfDays = numberOfDays;
+        this.numberOfDays = numberOfDays;
         this.counterDays = numberOfDays;
         this.displayPrice = displayPrice;
     }
@@ -21,15 +21,15 @@ public class PluralDayTicket implements TicketInterface {
         }
         alreadyIn = true;
         --counterDays;
-        // TODO no need for ; after } by zaya 2019/10/17
-    };
+        // DONE TODO no need for ; after } by zaya 2019/10/17
+    }
 
     public int getDisplayPrice() {
         return displayPrice;
-    };
+    }
 
     public String getTicketType() {
-        return NoOfDays + " Days ticket.";
+        return numberOfDays + " Days ticket.";
     }
 
     public int counterDays() {

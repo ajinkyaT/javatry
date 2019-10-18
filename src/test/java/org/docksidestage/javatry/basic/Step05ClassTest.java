@@ -152,7 +152,7 @@ public class Step05ClassTest extends PlainTestCase {
         TicketBooth booth = new TicketBooth();
         int handedMoney = 20000;
         TicketBuyResult twoDayPassportResult = booth.buyTwoDayPassport(handedMoney);
-        TicketInterface twoDayPassport =  twoDayPassportResult.getTicket();
+        Ticket twoDayPassport =  twoDayPassportResult.getTicket();
         int change = twoDayPassportResult.getChange();
         log(twoDayPassport.getDisplayPrice() + change); // should be same as money
     }
@@ -170,7 +170,7 @@ public class Step05ClassTest extends PlainTestCase {
 
         int handedMoney_new = 20000;
         TicketBuyResult twoDayPassportResult = booth.buyTwoDayPassport(handedMoney_new);
-        TicketInterface twoDayPassport = twoDayPassportResult.getTicket();
+        Ticket twoDayPassport = twoDayPassportResult.getTicket();
         log(twoDayPassport.getTicketType());
 
     }
@@ -203,7 +203,7 @@ public class Step05ClassTest extends PlainTestCase {
 
         int handedMoney_new = 20000;
         TicketBuyResult twoDayPassportResult = booth.buyTwoDayPassport(handedMoney_new);
-        TicketInterface twoDayPassport =  twoDayPassportResult.getTicket();
+        Ticket twoDayPassport =  twoDayPassportResult.getTicket();
         log(twoDayPassport.getTicketType());
 
     }
@@ -217,9 +217,7 @@ public class Step05ClassTest extends PlainTestCase {
         TicketBooth booth = new TicketBooth();
         int handedMoney_new = 24000;
         TicketBuyResult fourDayPassportResult = booth.buyFourDayPassport(handedMoney_new);
-        TicketInterface fourDayPassportPassport =  fourDayPassportResult.getTicket();
-//        log(fourDayPassportPassport instanceof PluralDayTicket);
-//        PluralDayTicket ticket = (PluralDayTicket) fourDayPassportPassport;
+        Ticket fourDayPassportPassport =  fourDayPassportResult.getTicket();
         log(fourDayPassportPassport.getTicketType());
         log("Change: " + fourDayPassportResult.getChange());
         fourDayPassportPassport.doInPark();
