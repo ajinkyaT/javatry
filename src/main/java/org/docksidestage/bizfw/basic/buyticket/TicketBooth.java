@@ -55,6 +55,9 @@ public class TicketBooth {
     }
 
     public TicketBuyResult buyTwoDayPassport(int handedMoney) {
+        // TODO you have nice method there named buyAnyDayPassport()
+        //  so you can just
+        //  return buyAnyDayPassport(TWO_DAY_PRICE, handedMoney, 2); by zaya 2019/10/17
         change = buyTicket(TWO_DAY_PRICE, handedMoney);
         return new TicketBuyResult(change, TWO_DAY_PRICE, false, 2);
     }
@@ -64,7 +67,9 @@ public class TicketBooth {
         return new TicketBuyResult(change, FOUR_DAY_PRICE, false, 4);
     }
 
+    // TODO bit long method here, you can refactor by creating new handlingMoney() method? or smth like that if you want to by zaya 2019/10/17
     private int buyTicket(int displayPrice, int handedMoney){
+        // TODO redeclared, first one in L36 by zaya 2019/10/17
         int change = 0;
         if (quantity <= 0) {
             throw new TicketSoldOutException("Sold out");

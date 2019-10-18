@@ -250,6 +250,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         String sea = sound.getBarkWord();
         log(sea); // your answer? => nya
         int land = animal.getHitPoint();
+        // TODO it should be 5, but it's 10 here :DDD
+        //  I think you have changed cat hitPoint calculation, if it is on purpose, it is ok
+        //  if it's not try to fix it? by zaya 2019/10/17
         log(land); // your answer? => shouldn't it be 6?
     }
 
@@ -339,6 +342,8 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_writing_generalization_extractToAbstract() {
         // your confirmation code here
+        // TODO make interface name start with capital letter and variable small letter by zaya 2019/10/17
+        //  variables starts small, Classes and Interface starts big
         dbAbstract MySql = new St6MySql();
         String sea = MySql.buildPagingQuery(5,7);
         log("St6MySql" + sea);
@@ -373,6 +378,11 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_writing_withDelegation() {
         // your confirmation code here
+        // TODO here I can do BarkingProcess zombie = new Zombie();
+        //  I shouldn't be able to do it, because Zombie is not a BarkingProcess,
+        //  Zombie, Dog and Cat are animals, it can move, bark, eat, but Zombie, Dog and Cat are not "process"
+        //  Animals can bark, so BarkingProcess can be called and used in Animal class
+        //  maybe you can add "BarkingProcess barkingProcess;" in Animal and use it in bark() method by zaya 2019/10/17
         Zombie zombie = new Zombie();
         BarkedSound sound = zombie.bark();
         String sea = sound.getBarkWord();
