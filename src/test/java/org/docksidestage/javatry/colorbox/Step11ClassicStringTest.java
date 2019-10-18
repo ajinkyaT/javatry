@@ -97,6 +97,9 @@ public class Step11ClassicStringTest extends PlainTestCase {
             for (BoxSpace boxSpace : colorBox.getSpaceList()) {
                 Object content = boxSpace.getContent();
                 if (content instanceof String) {
+                    // TODO (((String) content).length() > maxLength) looks complicated,
+                    //  create String contentString = content.toString();
+                    //  and you can use it in if-max, if-min, maxString and minString by zaya 2019/10/18
                     if (((String) content).length() > maxLength) {
                         maxString = content.toString();
                         maxLength = maxString.length();
@@ -125,6 +128,7 @@ public class Step11ClassicStringTest extends PlainTestCase {
             String secondMaxString = "";
             for (ColorBox colorBox : colorBoxList) {
                 for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                    // TODO fix to if (boxSpace.getContent() != null) by zaya 2019/10/18
                     if (!(boxSpace.getContent() == null)) {
                         String content = boxSpace.getContent().toString();
                         if (content.length() > 0) {
@@ -209,6 +213,7 @@ public class Step11ClassicStringTest extends PlainTestCase {
                 }
             }
         }
+        // TODO what happens if there are no string containing "Water" in there? by zaya 2019/10/18
         log("Color is: " + color);
     }
 
@@ -431,6 +436,8 @@ public class Step11ClassicStringTest extends PlainTestCase {
                 for (BoxSpace boxSpace : colorBox.getSpaceList()) {
                     if (!(boxSpace.getContent() == null) && (boxSpace.getContent() instanceof java.util.Map)) {
                         String result = "map:{ ";
+                        // TODO how do we know the key in map is String? by zaya 2019/10/18
+                        // TODO [question] why the map name is gotMap? (?o?) by zaya 2019/10/18
                         Map<String, Object> gotMap = (Map<String, Object>) boxSpace.getContent();
                         for (Map.Entry<String, Object> entry : gotMap.entrySet()) {
                             String key = entry.getKey();
