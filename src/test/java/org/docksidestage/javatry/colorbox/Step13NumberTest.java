@@ -15,9 +15,14 @@
  */
 package org.docksidestage.javatry.colorbox;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.docksidestage.bizfw.colorbox.ColorBox;
+import org.docksidestage.bizfw.colorbox.impl.DoorColorBox;
 import org.docksidestage.bizfw.colorbox.space.BoxSpace;
 import org.docksidestage.bizfw.colorbox.yours.YourPrivateRoom;
 import org.docksidestage.unit.PlainTestCase;
@@ -44,8 +49,8 @@ public class Step13NumberTest extends PlainTestCase {
         for (ColorBox colorBox : colorBoxList) {
             for (BoxSpace boxSpace : colorBox.getSpaceList()) {
                 Object content = boxSpace.getContent();
-                if (content instanceof Integer ) {
-                    if ( ((Integer) content) > 0 && ((Integer) content) < 54) {
+                if (content instanceof Integer) {
+                    if (((Integer) content) > 0 && ((Integer) content) < 54) {
                         count++;
                     }
                 }
@@ -62,13 +67,12 @@ public class Step13NumberTest extends PlainTestCase {
      */
     public void test_countZeroToFiftyFour_Number() {
         List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
-        String maxString = "";
         int count = 0;
         for (ColorBox colorBox : colorBoxList) {
             for (BoxSpace boxSpace : colorBox.getSpaceList()) {
                 Object content = boxSpace.getContent();
-                if (content instanceof Number ) {
-                    if ( ( ((Number) content).intValue()) > 0 && ( ((Number) content).intValue()) < 54) {
+                if (content instanceof Number) {
+                    if ((((Number) content).intValue()) > 0 && (((Number) content).intValue()) < 54) {
                         count++;
                     }
                 }
@@ -84,6 +88,27 @@ public class Step13NumberTest extends PlainTestCase {
      * (カラーボックスの中で、Integer型の Content を持っていてBoxSizeの幅が一番大きいカラーボックスの色は？)
      */
     public void test_findColorBigWidthHasInteger() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        String color = "";
+        int width = 0;
+
+        for (ColorBox colorBox : colorBoxList) {
+
+            for (BoxSpace boxSpace : colorBox.getSpaceList()) {
+                Object content;
+                try {
+                    content = boxSpace.getContent();
+                } catch (RuntimeException e) {
+                    continue;
+                }
+                if (content != null && content instanceof Integer && (colorBox.getSize().getWidth() > width)) {
+                    color = colorBox.getColor().getColorName();
+                    width = colorBox.getSize().getWidth();
+                }
+            }
+        }
+
+        log(color);
     }
 
     /**
@@ -91,6 +116,27 @@ public class Step13NumberTest extends PlainTestCase {
      * (カラーボックスの中に入ってる List の中の BigDecimal を全て足し合わせると？)
      */
     public void test_sumBigDecimalInList() {
+
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        List numList = colorBoxList.stream()
+                .flatMap(colorBox -> colorBox.getSpaceList().stream())
+                .filter(boxSpace -> boxSpace.getContent() instanceof ArrayList)
+                .map(boxSpace -> {
+                    return (List) boxSpace.getContent();
+                })
+                .findFirst()
+                .orElse(new ArrayList());
+
+        BigDecimal sum = new BigDecimal(0);
+        for (int i = 0; i < numList.size(); i++) {
+
+            if (numList.get(i) instanceof BigDecimal) {
+                String bigValue = numList.get(i).toString();
+                BigDecimal basisValue = new BigDecimal(bigValue);
+                sum = sum.add(basisValue);
+            }
+        }
+        log(sum.toString());
     }
 
     // ===================================================================================
@@ -101,6 +147,17 @@ public class Step13NumberTest extends PlainTestCase {
      * (カラーボックスに入ってる、valueが数値のみの Map の中で一番大きいvalueのkeyは？)
      */
     public void test_findMaxMapNumberValue() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        Map<String, Integer> map = colorBoxList.stream()
+                .flatMap(colorBox -> colorBox.getSpaceList().stream())
+                .filter(boxSpace -> boxSpace.getContent() instanceof Map<?, ?>)
+                .map(boxSpace -> {
+                    return (Map) boxSpace.getContent();
+                })
+                .findFirst()
+                .orElse(new HashMap());
+
+        log(map.entrySet().stream().max((entry1, entry2) -> entry1.getValue() > entry2.getValue() ? 1 : -1).get().getKey());
     }
 
     /**
@@ -108,5 +165,28 @@ public class Step13NumberTest extends PlainTestCase {
      * (purpleのカラーボックスに入ってる Map の中のvalueの数値・数字の合計は？)
      */
     public void test_sumMapNumberValue() {
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        Map<String, ?> map = colorBoxList.stream()
+                .filter(colorBox -> colorBox.getColor().getColorName() == "purple")
+                .flatMap(colorBox -> colorBox.getSpaceList().stream())
+                .filter(boxSpace -> (boxSpace.getContent() instanceof Map<?, ?>) && ((Map) boxSpace.getContent()).values()
+                        .toArray()[0] instanceof Number)
+                .map(boxSpace -> {
+                    return (Map) boxSpace.getContent();
+                })
+                .findFirst()
+                .orElse(new HashMap());
+
+        int sum = 0;
+        List<Object> nums = new ArrayList<Object>(map.values());
+
+        for (int i = 0; i < nums.size(); i++) {
+                String value = nums.get(i).toString().replace('O','0');
+                int intValue = Integer.parseInt(value);
+                sum = sum + intValue;
+            }
+        log("Total is: ",sum);
+        
     }
 }
+
