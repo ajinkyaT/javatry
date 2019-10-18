@@ -15,6 +15,11 @@
  */
 package org.docksidestage.javatry.colorbox;
 
+import java.time.LocalDate;
+import java.util.*;
+
+import org.docksidestage.bizfw.colorbox.ColorBox;
+import org.docksidestage.bizfw.colorbox.yours.YourPrivateRoom;
 import org.docksidestage.unit.PlainTestCase;
 
 /**
@@ -32,7 +37,74 @@ public class Step14DateTest extends PlainTestCase {
      * What string is date in color-boxes formatted as slash-separated (e.g. 2019/04/24)? <br>
      * (カラーボックスに入っている日付をスラッシュ区切り (e.g. 2019/04/24) のフォーマットしたら？)
      */
+
     public void test_formatDate() {
+
+        List<ColorBox> colorBoxList = new YourPrivateRoom().getColorBoxList();
+        Set<String> setString = colorBoxList.stream()
+                .flatMap(colorBox -> colorBox.getSpaceList().stream())
+                .filter(boxSpace -> boxSpace.getContent() instanceof Set<?>)
+                .map(boxSpace -> {
+                    return (Set) boxSpace.getContent();
+                })
+                .findFirst()
+                .orElse(new Set() {
+                    @Override
+                    public int size() {
+                        return 0;
+                    }
+                    @Override
+                    public boolean isEmpty() {
+                        return false;
+                    }
+                    @Override
+                    public boolean contains(Object o) {
+                        return false;
+                    }
+                    @Override
+                    public Iterator iterator() {
+                        return null;
+                    }
+                    @Override
+                    public Object[] toArray() {
+                        return new Object[0];
+                    }
+                    @Override
+                    public Object[] toArray(Object[] objects) {
+                        return new Object[0];
+                    }
+                    @Override
+                    public boolean add(Object o) {
+                        return false;
+                    }
+                    @Override
+                    public boolean remove(Object o) {
+                        return false;
+                    }
+                    @Override
+                    public boolean containsAll(Collection collection) {
+                        return false;
+                    }
+                    @Override
+                    public boolean addAll(Collection collection) {
+                        return false;
+                    }
+                    @Override
+                    public boolean retainAll(Collection collection) {
+                        return false;
+                    }
+                    @Override
+                    public boolean removeAll(Collection collection) {
+                        return false;
+                    }
+                    @Override
+                    public void clear() {
+
+                    }
+                });
+
+
+        log("Date contained are: " , setString);
     }
 
     /**
